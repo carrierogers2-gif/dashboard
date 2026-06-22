@@ -1,3 +1,7 @@
+https://raw.githubusercontent.com/carrierogers2-gif/dashboard/main/index.html
+→ https://raw.githubusercontent.com/carrierogers2-gif/dashboard/main/index.html
+Content-Type: text/plain; charset=utf-8
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,7 +165,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .rbm{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center;}
 .rb-amt{font-size:16px;font-weight:800;color:var(--gn);}
 .rb-upd{font-size:11px;color:var(--mu);font-style:italic;}
-
+ 
 /* Life tab */
 .rcp{padding:12px 0;border-bottom:1px solid var(--bd);}
 .rcp:last-child{border-bottom:none;}
@@ -191,7 +195,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </style>
 </head>
 <body>
-
+ 
 <div class="hdr">
   <div class="tr">
     <div><h1 id="gr">Good morning, Carrie!</h1><div class="sub" id="dl"></div></div>
@@ -199,7 +203,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
   <div class="cd" id="cd"></div>
 </div>
-
+ 
 <div class="tabs">
   <button class="tab active" onclick="sw('home',this)">🏠 Home</button>
   <button class="tab" onclick="sw('pbo',this)">🏳️‍🌈 PBO</button>
@@ -211,7 +215,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button class="tab" onclick="sw('events',this)">🎪 Events</button>
   <button class="tab" onclick="sw('life',this)">📚 Life</button>
 </div>
-
+ 
 <!-- HOME -->
 <div class="panel active" id="p-home">
   <div class="cap-card">
@@ -242,7 +246,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="cb"><textarea class="notes" id="nte" placeholder="Jot anything down…"></textarea></div>
   </div>
 </div>
-
+ 
 <!-- PBO -->
 <div class="panel" id="p-pbo">
   <div class="card">
@@ -268,7 +272,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="card" id="cpbc" style="display:none"><div class="ch">⚡ PBO Notes</div><div class="cb"><ul class="cl" id="cpbl"></ul></div></div>
   <p class="hint">For live updates open the full dashboard in Cowork on your computer.</p>
 </div>
-
+ 
 <!-- FINANCE -->
 <div class="panel" id="p-fin">
   <div class="card">
@@ -312,7 +316,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
-
+ 
 <!-- HOME PROJECTS -->
 <div class="panel" id="p-home2">
   <div class="card">
@@ -328,7 +332,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
-
+ 
 <!-- JOBS -->
 <div class="panel" id="p-jobs">
   <div class="card">
@@ -362,7 +366,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
   <div class="card" id="cjobc" style="display:none"><div class="ch">⚡ Job Search Notes</div><div class="cb"><ul class="cl" id="cjobl"></ul></div></div>
 </div>
-
+ 
 <!-- LISTS -->
 <div class="panel" id="p-lists">
   <div class="stabs" id="lst-tabs">
@@ -442,7 +446,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
-
+ 
 <!-- CONTACTS -->
 <div class="panel" id="p-contacts">
   <div class="stabs" id="con-tabs">
@@ -472,27 +476,97 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
-
+ 
 <!-- EVENTS -->
 <div class="panel" id="p-events">
-  <div class="card">
-    <div class="ch">🎪 Event Planning Co. — Ideas &amp; Research</div>
-    <div class="cb">
-      <div id="ecl"><div class="empty">No ideas yet!</div></div>
-      <div class="ar" style="margin-top:10px">
-        <input class="gw" type="text" id="eci" placeholder="Add an idea or research note…">
-        <button class="sb" onclick="addEC()">Add</button>
+  <div class="stabs" id="ev-tabs">
+    <button class="stab active" onclick="swe('ideas',this)">🎪 Ideas</button>
+    <button class="stab" onclick="swe('out',this)">📞 Outreach</button>
+    <button class="stab" onclick="swe('cert',this)">🏆 Certs &amp; Grants</button>
+    <button class="stab" onclick="swe('proj',this)">📁 Projects</button>
+  </div>
+ 
+  <div id="ev-ideas">
+    <div class="card">
+      <div class="ch">🎪 Event Planning Co. — Ideas &amp; Research</div>
+      <div class="cb">
+        <div id="ecl"><div class="empty">No ideas yet!</div></div>
+        <div class="ar" style="margin-top:10px">
+          <input class="gw" type="text" id="eci" placeholder="Add an idea or research note…">
+          <button class="sb" onclick="addEC()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div id="ev-out" style="display:none">
+    <div class="card">
+      <div class="ch">📞 Business Outreach</div>
+      <div class="cb">
+        <div id="boutl"></div>
+        <div class="sec" style="margin-top:8px">➕ Add Contact</div>
+        <div class="ar">
+          <input class="gw" type="text" id="boutn" placeholder="Name">
+          <input class="gw" type="text" id="boutr" placeholder="Why / what to pitch">
+        </div>
+        <div class="ar" style="margin-top:7px">
+          <select id="bouts" class="gw">
+            <option value="todo">📋 Draft message</option>
+            <option value="sent">📨 Message sent</option>
+            <option value="connected">✅ Connected</option>
+            <option value="hold">⏸ On hold</option>
+          </select>
+          <button class="sb" onclick="addBOut()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div id="ev-cert" style="display:none">
+    <div class="card">
+      <div class="ch">🏆 Certifications &amp; Grants</div>
+      <div class="cb">
+        <div id="certl"></div>
+        <div class="sec" style="margin-top:8px">➕ Add Item</div>
+        <div class="ar">
+          <input class="gw" type="text" id="certn" placeholder="Certification or grant name">
+          <select id="certs" class="gw">
+            <option value="todo">📋 To Do</option>
+            <option value="active">⚡ In Progress</option>
+            <option value="done">✅ Complete</option>
+          </select>
+          <button class="sb" onclick="addCert()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div id="ev-proj" style="display:none">
+    <div class="card">
+      <div class="ch">📁 Active Projects</div>
+      <div class="cb">
+        <div id="evprl"></div>
+        <div class="sec" style="margin-top:8px">➕ Add Project</div>
+        <div class="ar">
+          <input class="gw" type="text" id="evprn" placeholder="Project name">
+          <select id="evprs" class="gw">
+            <option value="active">⚡ Active</option>
+            <option value="planned">📋 Planned</option>
+            <option value="done">✅ Done</option>
+          </select>
+          <button class="sb" onclick="addEvPr()">Add</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
+ 
 <script>
 var G={_prevImg:''};
 function $(i){return document.getElementById(i);}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 function ld(k,d){try{var v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch(e){return d;}}
-
+ 
 // Clock
 function tick(){
   var now=new Date(),h=now.getHours();
@@ -503,7 +577,7 @@ function tick(){
   $('cd').textContent='🏳️‍🌈 PBO Pride 2026 — '+d+' days away';
 }
 setInterval(tick,1000);tick();
-
+ 
 // Tab switching
 function sw(id,btn){
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
@@ -522,12 +596,12 @@ function swc(id,btn){
   btn.classList.add('active');
   ['rch','lnk'].forEach(function(s){$('c-'+s).style.display=s===id?'block':'none';});
 }
-
+ 
 // Notes
 var NOTE_KEY='notes_'+new Date().toDateString();
 $('nte').value=localStorage.getItem(NOTE_KEY)||'';
 $('nte').addEventListener('input',function(){localStorage.setItem(NOTE_KEY,$('nte').value);});
-
+ 
 // Priorities
 var PRI_KEY='pris_'+new Date().toDateString();
 var pris=ld(PRI_KEY,[]);
@@ -543,7 +617,7 @@ function togPri(i){pris[i].done=!pris[i].done;sv(PRI_KEY,pris);rpri();}
 function delPri(i){pris.splice(i,1);sv(PRI_KEY,pris);rpri();}
 $('pri').addEventListener('keydown',function(e){if(e.key==='Enter')addPri();});
 rpri();
-
+ 
 // Capture
 function lcap(k){return ld('caps_'+k,[]);}
 function scap(k,a){sv('caps_'+k,a);}
@@ -570,8 +644,15 @@ function racaps(){
   rEC();
 }
 racaps();
-
-// Event Co
+ 
+// Event Co - sub-tab switcher
+function swe(id,btn){
+  document.querySelectorAll('#ev-tabs .stab').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  ['ideas','out','cert','proj'].forEach(function(s){$('ev-'+s).style.display=s===id?'block':'none';});
+}
+ 
+// Event Co - Ideas
 var ecItems=ld('ec_items',[]);
 function rEC(){
   var el=$('ecl'),caps=lcap('ec'),all=caps.map(function(c){return c.text;}).concat(ecItems);
@@ -583,7 +664,82 @@ function rEC(){
 function addEC(){var t=$('eci').value.trim();if(!t)return;ecItems.push(t);sv('ec_items',ecItems);$('eci').value='';rEC();}
 function delEC(i){ecItems.splice(i,1);sv('ec_items',ecItems);rEC();}
 $('eci').addEventListener('keydown',function(e){if(e.key==='Enter')addEC();});
-
+ 
+// Event Co - Business Outreach
+var BOUT_DEFAULT=[
+  {name:'Tiffany Drummond Armstrong',reason:'Intro & services pitch',status:'todo',date:'Jun 22'},
+  {name:'Rebecca Dickenson',reason:'Chatham Chamber / Leadership Chatham',status:'todo',date:'Jun 22'},
+  {name:'Cheryl Littleton',reason:'Chatham Chamber / Leadership Chatham',status:'todo',date:'Jun 22'},
+  {name:'Marshall & Melissa Rich',reason:'Education fundraiser concept',status:'todo',date:'Jun 22'},
+  {name:'Jennie Knowlton',reason:'Quiltmaker Café supper club pitch',status:'todo',date:'Jun 22'},
+  {name:'Heather Scott',reason:'HR professional — intro & referral ask',status:'todo',date:'Jun 22'},
+  {name:'Sarah Merritt',reason:'NAMI NC statewide conference (Nov 2026, Greensboro)',status:'todo',date:'Jun 22'}
+];
+var bouts=ld('boutreach',null);
+if(bouts===null){bouts=BOUT_DEFAULT;sv('boutreach',bouts);}
+var BOST={todo:{lb:'📋 Draft',cl:'background:#f0ece6;color:var(--mu)'},sent:{lb:'📨 Sent',cl:'background:var(--blt);color:var(--bl)'},connected:{lb:'✅ Connected',cl:'background:var(--gnlt);color:var(--gn)'},hold:{lb:'⏸ Hold',cl:'background:#fef9e7;color:#b7950b'}};
+function rbouts(){
+  var el=$('boutl');
+  if(!bouts.length){el.innerHTML='<div class="empty">No outreach contacts yet!</div>';return;}
+  el.innerHTML=bouts.map(function(r,i){
+    var st=BOST[r.status]||BOST.todo;
+    return '<div class="rhc"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="rhn">'+r.name+'</div>'+(r.reason?'<div class="rhr">📌 '+r.reason+'</div>':'')+'</div><button class="del" onclick="delBOut('+i+')">×</button></div><div class="rhm"><span style="font-size:11px;border-radius:4px;padding:2px 7px;font-weight:600;'+st.cl+'">'+st.lb+'</span>'+(r.date?'<span class="bd bdx" style="margin-left:4px">'+r.date+'</span>':'')+'<select class="msel" onchange="updBOut('+i+',this.value)" style="margin-left:6px">'+['todo','sent','connected','hold'].map(function(k){var s=BOST[k];return '<option value="'+k+'" '+(r.status===k?'selected':'')+'>'+s.lb+'</option>';}).join('')+'</select></div></div>';
+  }).join('');
+}
+function addBOut(){var n=$('boutn').value.trim(),r=$('boutr').value.trim(),s=$('bouts').value;if(!n)return;var d=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});bouts.unshift({name:n,reason:r,status:s,date:d});sv('boutreach',bouts);$('boutn').value='';$('boutr').value='';rbouts();}
+function updBOut(i,s){bouts[i].status=s;sv('boutreach',bouts);rbouts();}
+function delBOut(i){bouts.splice(i,1);sv('boutreach',bouts);rbouts();}
+rbouts();
+ 
+// Event Co - Certifications & Grants
+var CERT_DEFAULT=[
+  {name:'WBENC (via WBEC East)',status:'todo',note:'Highest leverage — opens corporate supplier diversity & Fortune 500 procurement'},
+  {name:'NC HUB — NC Dept. of Administration',status:'todo',note:'State-level relevance to NC State relationship'},
+  {name:'City of Raleigh Mini-Grant',status:'todo',note:'Near-term fit'},
+  {name:'Amber Grant',status:'todo',note:'Rolling monthly — needs polished one-page business description first'},
+  {name:'Carolina Small Business Development Fund',status:'todo',note:'Free advising + certification support'}
+];
+var certs=ld('evCerts',null);
+if(certs===null){certs=CERT_DEFAULT;sv('evCerts',certs);}
+var CEST={todo:{lb:'📋 To Do',cl:'background:#f0ece6;color:var(--mu)'},active:{lb:'⚡ In Progress',cl:'background:var(--blt);color:var(--bl)'},done:{lb:'✅ Complete',cl:'background:var(--gnlt);color:var(--gn)'}};
+function rcerts(){
+  var el=$('certl');
+  if(!certs.length){el.innerHTML='<div class="empty">No items yet!</div>';return;}
+  el.innerHTML=certs.map(function(c,i){
+    var st=CEST[c.status]||CEST.todo;
+    return '<div class="proj" style="flex-wrap:wrap;gap:4px"><span style="font-size:11px;border-radius:4px;padding:2px 7px;font-weight:600;white-space:nowrap;'+st.cl+'">'+st.lb+'</span><span class="pt" style="flex:1;min-width:120px">'+c.name+(c.note?'<div style="font-size:12px;color:var(--mu);font-weight:400;margin-top:2px">'+c.note+'</div>':'')+'</span><select class="msel" onchange="updCert('+i+',this.value)">'+['todo','active','done'].map(function(k){return '<option value="'+k+'" '+(c.status===k?'selected':'')+'>'+CEST[k].lb+'</option>';}).join('')+'</select><button class="del" onclick="delCert('+i+')">×</button></div>';
+  }).join('');
+}
+function addCert(){var n=$('certn').value.trim(),s=$('certs').value;if(!n)return;certs.push({name:n,status:s,note:''});sv('evCerts',certs);$('certn').value='';rcerts();}
+function updCert(i,s){certs[i].status=s;sv('evCerts',certs);rcerts();}
+function delCert(i){certs.splice(i,1);sv('evCerts',certs);rcerts();}
+rcerts();
+ 
+// Event Co - Active Projects
+var EVPR_DEFAULT=[
+  {name:'PBOPride Festival "Rooted & Rising" — Year 3',status:'active',note:'October 2026'},
+  {name:'NC State CERSA Temp Role',status:'active',note:'Workshop with Danesha Seth Carley — income bridge + portfolio piece'},
+  {name:'NAMI NC Statewide Conference (Sarah Merritt lead)',status:'planned',note:'Greensboro, November 2026'},
+  {name:'Rise & Lead — Leadership Program for HS Women',status:'planned',note:'On hold — meaningful portfolio opportunity'},
+  {name:'Business Name Check: "Chapter & Bloom"',status:'planned',note:'Local name conflict search needed before committing'}
+];
+var evprs=ld('evProjects',null);
+if(evprs===null){evprs=EVPR_DEFAULT;sv('evProjects',evprs);}
+var EVPST={active:{lb:'⚡ Active',cl:'background:var(--blt);color:var(--bl)'},planned:{lb:'📋 Planned',cl:'background:#f0ece6;color:var(--mu)'},done:{lb:'✅ Done',cl:'background:var(--gnlt);color:var(--gn)'}};
+function revprs(){
+  var el=$('evprl');
+  if(!evprs.length){el.innerHTML='<div class="empty">No projects yet!</div>';return;}
+  el.innerHTML=evprs.map(function(p,i){
+    var st=EVPST[p.status]||EVPST.planned;
+    return '<div class="proj" style="flex-wrap:wrap;gap:4px"><span style="font-size:11px;border-radius:4px;padding:2px 7px;font-weight:600;white-space:nowrap;'+st.cl+'">'+st.lb+'</span><span class="pt" style="flex:1;min-width:120px">'+p.name+(p.note?'<div style="font-size:12px;color:var(--mu);font-weight:400;margin-top:2px">'+p.note+'</div>':'')+'</span><select class="msel" onchange="updEvPr('+i+',this.value)">'+['active','planned','done'].map(function(k){return '<option value="'+k+'" '+(p.status===k?'selected':'')+'>'+EVPST[k].lb+'</option>';}).join('')+'</select><button class="del" onclick="delEvPr('+i+')">×</button></div>';
+  }).join('');
+}
+function addEvPr(){var n=$('evprn').value.trim(),s=$('evprs').value;if(!n)return;evprs.push({name:n,status:s,note:''});sv('evProjects',evprs);$('evprn').value='';revprs();}
+function updEvPr(i,s){evprs[i].status=s;sv('evProjects',evprs);revprs();}
+function delEvPr(i){evprs.splice(i,1);sv('evProjects',evprs);revprs();}
+$('evprn').addEventListener('keydown',function(e){if(e.key==='Enter')addEvPr();});
+revprs();
+ 
 // Credit score + hide toggle
 var _csHidden=false;
 function togCS(){
@@ -603,19 +759,19 @@ function rCS(){
   $('csno').textContent=goal>now?(goal-now)+' points to go!':'🎉 Goal reached!';
 }
 rCS();
-
+ 
 // ── REBATES ──────────────────────────────────────────────────────────────────
 // REBATE_SEED_START — auto-updated by weekly rebate checker task, do not edit this line
 var REBATE_SEED={ts:0,checkedDate:'',items:[]};
 // REBATE_SEED_END — do not edit this line
-
+ 
 (function seedRebates(){
   var stored=ld('rebates_v1',{ts:0,items:[]});
   if(REBATE_SEED.ts>stored.ts){sv('rebates_v1',REBATE_SEED);}
 })();
-
+ 
 var rebates=ld('rebates_v1',{ts:0,items:[]});
-
+ 
 function rRebates(){
   var el=$('rbl'),lbl=$('rbUpdLbl');
   var items=rebates.items||[];
@@ -650,7 +806,7 @@ function updRB(i,s){
 }
 rRebates();
 // ─────────────────────────────────────────────────────────────────────────────
-
+ 
 // Bills
 $('bmo').textContent=new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'});
 var tod=new Date().getDate();
@@ -669,7 +825,7 @@ function addBill(){var n=$('bln').value.trim(),d=parseInt($('bld').value)||1;if(
 function togBill(i){bills[i].paid=!bills[i].paid;sv('bills_v2',bills);rbills();}
 function delBill(i){bills.splice(i,1);sv('bills_v2',bills);rbills();}
 rbills();
-
+ 
 // Expenses
 var exps=ld('expenses',[]);
 function rexps(){
@@ -680,7 +836,7 @@ function rexps(){
 function addExp(){var n=$('exn').value.trim(),d=$('exd').value.trim();if(!n)return;exps.push({name:n,date:d});sv('expenses',exps);$('exn').value='';$('exd').value='';rexps();}
 function delExp(i){exps.splice(i,1);sv('expenses',exps);rexps();}
 rexps();
-
+ 
 // Home Projects
 var hps=ld('homeProjects',[]);
 var hpSt={planned:'background:#f0ece6;color:var(--mu)',active:'background:var(--blt);color:var(--bl)',done:'background:var(--gnlt);color:var(--gn)'};
@@ -697,7 +853,7 @@ function updHP(i,s){hps[i].status=s;sv('homeProjects',hps);rhp();}
 function delHP(i){hps.splice(i,1);sv('homeProjects',hps);rhp();}
 $('hpi').addEventListener('keydown',function(e){if(e.key==='Enter')addHP();});
 rhp();
-
+ 
 // Jobs
 var jobs=ld('jobs',[]);
 var JST={saved:{lb:'📌 Saved',cl:'bdx'},applied:{lb:'✉️ Applied',cl:'bdb'},responded:{lb:'💬 Responded',cl:'bdg'},interview1:{lb:'📅 Interview 1',cl:'bdp'},interview2:{lb:'📅 Interview 2',cl:'bdp'},interview3:{lb:'📅 Interview 3',cl:'bdp'},offer:{lb:'🎉 Offer!',cl:'bdgn'},archived:{lb:'🗄️ Archived',cl:'bdx'}};
@@ -724,7 +880,7 @@ function addJob(){
 function updJob(i,s){jobs[i].status=s;jobs[i].lastUpdate=new Date().toISOString();sv('jobs',jobs);rjobs();}
 function delJob(i){jobs.splice(i,1);sv('jobs',jobs);rjobs();}
 rjobs();
-
+ 
 // Returns
 var DEFAULT_RETS=[
   {store:'Woof + Ween',item:'XS dog harness (exchanging for Small)',url:'https://woofandween.com/pages/shipping-returns',instr:'Return already approved by Megan!\n1. Package the XS harness securely.\n2. Include your order # and name inside the package.\n3. Create your own shipping label (USPS, UPS, or FedEx).\n4. Ship to:\n   WOOF+WEEN\n   2290 Island Way\n   Gadsden, AL 35907\n5. Full refund processed on receipt.',lbl:'needed',status:'pending',date:'Jun 19'},
@@ -748,7 +904,7 @@ function updRS(i,v){rets[i].status=v;sv('returns_v2',rets);rrets();}
 function updRL(i,v){rets[i].lbl=v;sv('returns_v2',rets);rrets();}
 function delRet(i){rets.splice(i,1);sv('returns_v2',rets);rrets();}
 rrets();
-
+ 
 // Grocery
 var groc=ld('grocery',[]);
 function rgroc(){
@@ -762,7 +918,7 @@ function delGr(i){groc.splice(i,1);sv('grocery',groc);rgroc();}
 function clrGr(){groc=groc.filter(function(g){return !g.done;});sv('grocery',groc);rgroc();}
 $('gri').addEventListener('keydown',function(e){if(e.key==='Enter')addGr();});
 rgroc();
-
+ 
 // Lowe's
 var low=ld('lowes',[]);
 function rlow(){
@@ -776,7 +932,7 @@ function delLw(i){low.splice(i,1);sv('lowes',low);rlow();}
 function clrLw(){low=low.filter(function(l){return !l.done;});sv('lowes',low);rlow();}
 $('lwi').addEventListener('keydown',function(e){if(e.key==='Enter')addLw();});
 rlow();
-
+ 
 // Wish Lists
 var wls=ld('wlists_v2',[
   {id:'wl-white-elephant',name:'White Elephant Gift Ideas'},
@@ -784,10 +940,10 @@ var wls=ld('wlists_v2',[
   {id:'wl-for-me',name:'For Me ✨'}
 ]);
 var wlitems=ld('wlitems_v2',[]);
-
+ 
 function wlid(){return 'wl-'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
 function dom(url){try{return new URL(url).hostname.replace('www.','');}catch(e){return '';}}
-
+ 
 function syncWL(){
   var vs=$('wlv'),as=$('wil2');
   if(!vs||!as)return;
@@ -796,7 +952,7 @@ function syncWL(){
   try{vs.value=cur;}catch(e){}
   as.innerHTML='<option value="">— Choose a list —</option>'+wls.map(function(l){return '<option value="'+l.id+'">'+l.name+'</option>';}).join('');
 }
-
+ 
 function rwi(){
   var el=$('wil');if(!el)return;
   var filt=$('wlv')?$('wlv').value:'all';
@@ -819,7 +975,7 @@ function rwi(){
     el.innerHTML=items.map(function(it){return wiHtml(it);}).join('');
   }
 }
-
+ 
 function wiHtml(it){
   var list=wls.filter(function(l){return l.id===it.lid;})[0];
   var d=dom(it.url||'');
@@ -833,13 +989,13 @@ function wiHtml(it){
     (it.date?'<span style="font-size:11px;color:var(--mu)">'+it.date+'</span>':'')+
     '<button class="del" onclick="delWI(\''+it.id+'\')">×</button></div></div>';
 }
-
+ 
 function tnlf(){
   var f=$('nlf');
   f.style.display=(f.style.display==='block')?'none':'block';
   if(f.style.display==='block')setTimeout(function(){$('nln').focus();},50);
 }
-
+ 
 function cwl(){
   var name=($('nln').value||'').trim();
   if(!name){$('nln').focus();return;}
@@ -853,7 +1009,7 @@ function cwl(){
   $('nlf').style.display='none';
   rwi();
 }
-
+ 
 // Microlink thumbnail fetch
 var _metaTmr=null;
 function fetchMeta(url){
@@ -875,7 +1031,7 @@ function fetchMeta(url){
       }).catch(function(){pv.style.display='none';G._prevImg='';});
   },800);
 }
-
+ 
 function awi(){
   var u=($('wiu').value||'').trim(),t=($('wit').value||'').trim(),n=($('win').value||'').trim(),lid=($('wil2').value||'').trim();
   if(!u&&!t){alert('Add a URL or title!');return;}
@@ -888,12 +1044,12 @@ function awi(){
   $('wlpreview').style.display='none';
   syncWL();rwi();
 }
-
+ 
 function delWI(id){wlitems=wlitems.filter(function(i){return i.id!==id;});sv('wlitems_v2',wlitems);rwi();}
-
+ 
 $('nln').addEventListener('keydown',function(e){if(e.key==='Enter')cwl();});
 syncWL();rwi();
-
+ 
 // Reach Out
 var rchs=ld('reachout',[]);
 function rrchs(){
@@ -908,7 +1064,7 @@ function delRch(i){rchs.splice(i,1);sv('reachout',rchs);rrchs();}
 $('rchn').addEventListener('keydown',function(e){if(e.key==='Enter')$('rchr').focus();});
 $('rchr').addEventListener('keydown',function(e){if(e.key==='Enter')addRch();});
 rrchs();
-
+ 
 // Saved Links
 var lnks=ld('linkpark',[]);
 function rlnks(){
@@ -922,7 +1078,7 @@ function addLnk(){var u=$('lnku').value.trim(),n=$('lnkn').value.trim();if(!u)re
 function delLnk(i){lnks.splice(i,1);sv('linkpark',lnks);rlnks();}
 $('lnkn').addEventListener('keydown',function(e){if(e.key==='Enter')addLnk();});
 rlnks();
-
+ 
 // ─── LIFE TAB ────────────────────────────────────────────────────────────────
 function swlf(id,btn){
   document.querySelectorAll('#life-tabs .stab').forEach(function(b){b.classList.remove('active');});
@@ -935,7 +1091,7 @@ function swlf(id,btn){
   if(id==='dav')rDave();
   if(id==='rec')rRcp();
 }
-
+ 
 // ── RECIPES ───────────────────────────────────────────────────────────────────
 var DEFAULT_RECIPES=[
 {id:'rc1',title:'DIY Carpet Cleaner (Pet Odor Remover)',source:'World of Recipes (Facebook)',notes:'Ingredients:\n• 1 gallon hot water\n• 1/2 cup peroxide\n• 4 tbsp white vinegar\n• 4 tbsp Dawn dish soap\n• 1/2 cap fabric softener\n\nInstructions:\nMix all ingredients slowly. Add to carpet cleaning machine reservoir and clean as usual.',date:'Saved'},
@@ -967,7 +1123,7 @@ function addRcp(){
 }
 function delRcp(i){recipes.splice(i,1);sv('recipes_v1',recipes);rRcp();}
 rRcp();
-
+ 
 // ── MOVIES ────────────────────────────────────────────────────────────────────
 var FILMS_100=["Parasite","Mulholland Drive","There Will Be Blood","In the Mood for Love","Moonlight","No Country for Old Men","Eternal Sunshine of the Spotless Mind","Get Out","Spirited Away","The Social Network","Mad Max: Fury Road","The Zone of Interest","Children of Men","Inglourious Basterds","City of God","Crouching Tiger, Hidden Dragon","Brokeback Mountain","Y Tu Mama Tambien","Zodiac","The Wolf of Wall Street","The Royal Tenenbaums","The Grand Budapest Hotel","Boyhood","Her","Phantom Thread","Anatomy of a Fall","Adaptation","The Dark Knight","Arrival","Lost in Translation","The Departed","Bridesmaids","A Separation","WALL-E","A Prophet","American Sniper","Call Me by Your Name","Portrait of a Lady on Fire","Lady Bird","Yi Yi","Amelie","The Master","Oldboy","Once Upon a Time in Hollywood","Moneyball","Roma","Almost Famous","The Lives of Others","Before Sunset","Up","12 Years a Slave","The Favourite","Borat","Pan's Labyrinth","Inception","Punch-Drunk Love","Best in Show","Uncut Gems","Toni Erdmann","Whiplash","Kill Bill Vol. 1","Memento","Little Miss Sunshine","Gone Girl","Oppenheimer","Spotlight","Tar","The Hurt Locker","Under the Skin","Let the Right One In","Ocean's Eleven","Carol","Ratatouille","The Florida Project","Amour","O Brother, Where Art Thou?","Everything Everywhere All at Once","Aftersun","The Tree of Life","Volver","Black Swan","The Act of Killing","Inside Llewyn Davis","Melancholia","Anchorman","Past Lives","The Lord of the Rings: The Fellowship of the Ring","The Gleaners & I","Interstellar","Frances Ha","Fish Tank","Gladiator","Michael Clayton","Minority Report","The Worst Person in the World","Black Panther","Gravity","Grizzly Man","Memories of Murder","Superbad"];
 var movData=ld('movies_v1',{myList:[],seen100:{}});
@@ -992,7 +1148,7 @@ function delMovMy(i){movData.myList.splice(i,1);sv('movies_v1',movData);rMovMy()
 function togMov100(i,v){if(!movData.seen100)movData.seen100={};movData.seen100[i]=v;sv('movies_v1',movData);var ct=$('movSeenCt'),seen=movData.seen100,sc=Object.keys(seen).filter(function(k){return seen[k];}).length;if(ct)ct.textContent=sc+'/100 seen';}
 function addMov(){var t=($('movT').value||'').trim(),y=($('movY').value||'').trim();if(!t)return;if(!movData.myList)movData.myList=[];movData.myList.unshift({title:t,year:y,seen:false});sv('movies_v1',movData);$('movT').value='';$('movY').value='';rMovMy();}
 rMovMy();
-
+ 
 // ── BOOKS ─────────────────────────────────────────────────────────────────────
 var BOOKS_LIST=[
 {title:'The Other Slavery: The Uncovered Story of Indian Enslavement in America',author:'Andres Resendez'},
@@ -1021,7 +1177,7 @@ function delBkMy(i){bkData.myList.splice(i,1);sv('books_v1',bkData);rBksMy();}
 function togBk100(i,v){if(!bkData.readList)bkData.readList={};bkData.readList[i]=v;sv('books_v1',bkData);rBks100();}
 function addBk(){var t=($('bksT').value||'').trim(),a=($('bksA').value||'').trim();if(!t)return;if(!bkData.myList)bkData.myList=[];bkData.myList.unshift({title:t,author:a,read:false});sv('books_v1',bkData);$('bksT').value='';$('bksA').value='';rBksMy();}
 rBksMy();
-
+ 
 // ── QUOTES ────────────────────────────────────────────────────────────────────
 var DEFAULT_QUOTES=[
 {id:'q1',text:"Life is the best thing that's ever been invented.",author:'Gabriel Garcia Marquez',src:''},
@@ -1054,7 +1210,7 @@ function addQt(){
   sv('quotes_v1',quotes);$('qtText').value='';$('qtAuth').value='';rQts();
 }
 function delQt(i){quotes.splice(i,1);sv('quotes_v1',quotes);rQts();}
-
+ 
 // ── LOCAL ─────────────────────────────────────────────────────────────────────
 var DEFAULT_LOCAL=[
 {id:'loc1',title:'Pittsboro NC — Invasive Plants List',src:'pittsboronc.gov UDO Chapter 5',
@@ -1073,7 +1229,7 @@ function rLoc(){
   }).join('');
 }
 function delLoc(i){locItems.splice(i,1);sv('local_v1',locItems);rLoc();}
-
+ 
 // ── DAVE ──────────────────────────────────────────────────────────────────────
 var daveData=ld('dave_v1',{beer:'Will drink just about any amber lager, lager, or blonde ale. Not generally an IPA fan, but found at least one IPA he actually liked.',gifts:[],favs:[],todos:[]});
 function rDave(){
@@ -1097,9 +1253,9 @@ function delDaveItem(type,i){
   sv('dave_v1',daveData);rDave();
 }
 // ─────────────────────────────────────────────────────────────────────────────
-
+ 
 </script>
-
+ 
 <!-- LIFE -->
 <div class="panel" id="p-life">
   <div class="stabs" id="life-tabs">
@@ -1110,7 +1266,7 @@ function delDaveItem(type,i){
     <button class="stab" onclick="swlf('loc',this)">📍 Local</button>
     <button class="stab" onclick="swlf('dav',this)">💕 Dave</button>
   </div>
-
+ 
   <div id="lf-rec">
     <div class="card"><div class="ch">🍳 Recipes</div><div class="cb">
       <div id="rcpList"></div>
@@ -1123,7 +1279,7 @@ function delDaveItem(type,i){
       </div>
     </div></div>
   </div>
-
+ 
   <div id="lf-mov" style="display:none">
     <div class="card"><div class="ch">🎬 My Watchlist</div><div class="cb">
       <div id="movMyList"></div>
@@ -1138,7 +1294,7 @@ function delDaveItem(type,i){
       <div class="cb" id="mov100List"></div>
     </div>
   </div>
-
+ 
   <div id="lf-bks" style="display:none">
     <div class="card"><div class="ch">📖 My Reading List</div><div class="cb">
       <div id="bksMyList"></div>
@@ -1147,53 +1303,4 @@ function delDaveItem(type,i){
         <input type="text" id="bksA" placeholder="Author">
         <button class="wsb" onclick="addBk()">Add Book</button>
       </div>
-    </div></div>
-    <div class="card"><div class="ch">📚 Indigenous History &amp; Social Justice</div>
-      <div class="cb" id="bksList100"></div>
-    </div>
-  </div>
-
-  <div id="lf-qts" style="display:none">
-    <div id="qtsList"></div>
-    <div class="card" style="margin-top:4px"><div class="ch">➕ Add a Quote</div><div class="cb">
-      <div class="lf-form" style="margin-top:0;border:none;padding:0;background:transparent">
-        <textarea id="qtText" placeholder="Quote text…"></textarea>
-        <input type="text" id="qtAuth" placeholder="Author / @handle">
-        <button class="wsb" onclick="addQt()">Save Quote</button>
-      </div>
-    </div></div>
-  </div>
-
-  <div id="lf-loc" style="display:none">
-    <div id="locList"></div>
-  </div>
-
-  <div id="lf-dav" style="display:none">
-    <div class="card"><div class="ch">💕 Dave</div><div class="cb">
-      <div class="dave-sec">🍺 Beer Preferences</div>
-      <div style="font-size:14px;line-height:1.6;padding:6px 0" id="davBeer"></div>
-      <div class="dave-sec">🎁 Gift Ideas <button class="rt2" onclick="togDaveForm('gift')" style="margin-left:auto">+ Add</button></div>
-      <div id="davGifts"></div>
-      <div class="lf-form" id="daveGiftForm" style="display:none">
-        <input type="text" id="davGiftIn" placeholder="Gift idea or link…">
-        <button class="wsb" onclick="addDaveItem('gift')">Save</button>
-      </div>
-      <div class="dave-sec">⭐ Favorites <button class="rt2" onclick="togDaveForm('fav')" style="margin-left:auto">+ Add</button></div>
-      <div id="davFavs"></div>
-      <div class="lf-form" id="daveFavForm" style="display:none">
-        <input type="text" id="davFavCat" placeholder="Category (restaurant, food, show…)">
-        <input type="text" id="davFavItem" placeholder="Name">
-        <button class="wsb" onclick="addDaveItem('fav')">Save</button>
-      </div>
-      <div class="dave-sec">📍 Things to Do <button class="rt2" onclick="togDaveForm('todo')" style="margin-left:auto">+ Add</button></div>
-      <div id="davTodos"></div>
-      <div class="lf-form" id="daveTodoForm" style="display:none">
-        <input type="text" id="davTodoIn" placeholder="Place, activity, or experience…">
-        <button class="wsb" onclick="addDaveItem('todo')">Save</button>
-      </div>
-    </div></div>
-  </div>
-</div>
-
-</body>
-</html>
+    <
