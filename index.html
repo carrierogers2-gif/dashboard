@@ -208,6 +208,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button class="tab" onclick="sw('home2',this)">🔨 Home</button>
   <button class="tab" onclick="sw('pbo',this)">🏳️‍🌈 PBO Pride</button>
   <button class="tab" onclick="sw('events',this)">🎪 Events</button>
+  <button class="tab" onclick="sw('diet',this)">🥗 Diet</button>
   <button class="tab" onclick="sw('contacts',this)">📋 Contacts</button>
 </div>
 
@@ -434,12 +435,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="card">
     <div class="ch">🎪 Event Planning Co. — Ideas &amp; Research</div>
     <div class="cb">
-      <div id="ecl"><div class="empty">No ideas yet!</div></div>
+      <div id="ecl"></div>
       <div class="ar" style="margin-top:10px">
         <input class="gw" type="text" id="eci" placeholder="Add an idea or research note…">
         <button class="sb" onclick="addEC()">Add</button>
       </div>
     </div>
+  </div>
+  <div class="card">
+    <div class="ch">💼 Business Setup Checklist</div>
+    <div class="cb" id="evtBizList"></div>
+  </div>
+  <div class="card">
+    <div class="ch">🔗 Resources &amp; Links</div>
+    <div class="cb" id="evtResLinks"></div>
   </div>
 </div>
 
@@ -466,12 +475,17 @@ function sw(id,btn){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   btn.classList.add('active');
   $('p-'+id).classList.add('active');
+  if(id==='life'){setTimeout(function(){rRcp();},0);}
+  if(id==='diet'){setTimeout(function(){rDiet();rMeds();},0);}
 }
 function swl(id,btn){
   document.querySelectorAll('#lst-tabs .stab').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
   ['ret','wsh','groc','low'].forEach(function(s){$('l-'+s).style.display=s===id?'block':'none';});
   if(id==='wsh'){syncWL();rwi();}
+  if(id==='groc'){rgroc();}
+  if(id==='low'){rlow();}
+  if(id==='ret'){rrets();}
 }
 function swc(id,btn){
   document.querySelectorAll('#con-tabs .stab').forEach(function(b){b.classList.remove('active');});
@@ -540,6 +554,70 @@ function addEC(){var t=$('eci').value.trim();if(!t)return;ecItems.push(t);sv('ec
 function delEC(i){ecItems.splice(i,1);sv('ec_items',ecItems);rEC();}
 $('eci').addEventListener('keydown',function(e){if(e.key==='Enter')addEC();});
 
+// Events — Ideas seed
+var EC_SEED={ts:1782432000000,items:[
+  'Research LLC formation in NC — cost ~$125, file with SOSNC.gov',
+  'Set up separate business checking account (avoid co-mingling funds)',
+  'Draft service menu: Day-of coordination, Full planning, Festival/Pride support',
+  'Define day-rate and flat-fee pricing for different event types',
+  'Create a simple contract template (deposit, cancellation, scope)',
+  'Build a client intake questionnaire',
+  'Identify 3–5 vendor partners (caterers, A/V, photo, venue contacts)',
+  'Set up a basic website or one-pager (Canva or Squarespace)',
+  'Create a LinkedIn business profile page',
+  'List on The Knot, Thumbtack, or WeddingWire as a local planner',
+  'Ask PBO contacts for testimonials or letters of recommendation',
+  'Track all business income/expenses from day one (even small)',
+  'Look into Chatham Arts Council and Chatham Chamber for networking',
+  'Research Chatham County event permit requirements',
+  'Explore NC Small Business Center (free coaching + resources)'
+]};
+(function seedEC(){var s=ld('ec_seed_ts',0);if(EC_SEED.ts>s){sv('ec_items',EC_SEED.items);sv('ec_seed_ts',EC_SEED.ts);}})();
+ecItems=ld('ec_items',EC_SEED.items);
+
+// Events — Business setup checklist
+var EVT_BIZ=[
+  'Choose business name and check availability',
+  'File LLC with NC Secretary of State (sosnc.gov)',
+  'Get EIN from IRS (free, takes 5 min online)',
+  'Open dedicated business bank account',
+  'Set up bookkeeping (even a simple spreadsheet)',
+  'Draft standard client contract + invoice template',
+  'Create client intake questionnaire',
+  'Build a one-page website or Canva portfolio',
+  'Create LinkedIn + Instagram for the business',
+  'Get first 3 testimonials (PBO, friends, past events)'
+];
+var evtBizData=ld('evt_biz_v1',EVT_BIZ.map(function(t){return {text:t,done:false};}));
+function rEvtBiz(){
+  var el=$('evtBizList');
+  if(!el)return;
+  el.innerHTML=evtBizData.map(function(it,i){
+    return '<div class="item'+(it.done?' done':'')+'"><input type="checkbox" id="evb'+i+'" '+(it.done?'checked':'')+' onchange="togEvtBiz('+i+')"><label for="evb'+i+'">'+it.text+'</label></div>';
+  }).join('');
+}
+function togEvtBiz(i){evtBizData[i].done=!evtBizData[i].done;sv('evt_biz_v1',evtBizData);rEvtBiz();}
+rEvtBiz();
+
+// Events — Resources
+var EVT_RES=[
+  {label:'NC Secretary of State — LLC Filing',url:'https://www.sosnc.gov/online_services/business_registration'},
+  {label:'IRS EIN Application (free, instant)',url:'https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online'},
+  {label:'NC Small Business Center Network',url:'https://www.ncsbc.net/'},
+  {label:'Chatham County Arts Council',url:'https://chathamarts.org/'},
+  {label:'Chatham Chamber of Commerce',url:'https://chathamncchamber.com/'},
+  {label:'WeddingWire — list as a planner',url:'https://www.weddingwire.com/'},
+  {label:'Thumbtack — local event pros',url:'https://www.thumbtack.com/'},
+  {label:'NACE (event industry association)',url:'https://www.nace.net/'}
+];
+function rEvtRes(){
+  var el=$('evtResLinks');
+  if(!el)return;
+  el.innerHTML=EVT_RES.map(function(r){
+    return '<div style="padding:8px 0;border-bottom:1px solid var(--bd)"><a href="'+r.url+'" target="_blank" style="color:var(--pu);font-size:14px;text-decoration:none">🔗 '+r.label+'</a></div>';
+  }).join('');
+}
+rEvtRes();
 
 
 // ── REBATES ──────────────────────────────────────────────────────────────────
@@ -592,7 +670,7 @@ rRebates();
 // Bills
 $('bmo').textContent=new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'});
 var tod=new Date().getDate();
-var BILLS_SEED={ts:1750890000000,items:[
+var BILLS_SEED={ts:1782432000000,items:[
   {name:'NAF (Mortgage)',day:1,paid:false},{name:'CareCredit',day:1,paid:false},{name:'YMCA',day:1,paid:false},
   {name:'Duke Power',day:6,paid:false},{name:'Fortiva',day:6,paid:false},{name:'CarMax (Kia)',day:6,paid:false},{name:'Target Circle Card',day:6,paid:false},
   {name:'Brightspeed',day:10,paid:false},{name:'Milestone',day:11,paid:false},{name:'Lemonade — Friend',day:13,paid:false},
@@ -617,7 +695,7 @@ function delBill(i){bills.splice(i,1);sv('bills_v2',bills);rbills();}
 rbills();
 
 // Expenses
-var EXP_SEED={ts:1750890000000,items:[
+var EXP_SEED={ts:1782432000000,items:[
   {name:'Car repair deductible (MaxCare)',date:'TBD — $250'},{name:'New brakes',date:'TBD'},
   {name:'Lina vet shots (tech-only)',date:'TBD'},{name:'Tax bill ($1,500)',date:'Oct 15'},
   {name:'Fix Garage Door',date:'TBD'},{name:'Bamboo Project',date:'TBD'}
@@ -651,7 +729,7 @@ $('hpi').addEventListener('keydown',function(e){if(e.key==='Enter')addHP();});
 rhp();
 
 // PBO Up Next
-var PBO_UN_SEED={ts:1750890000000,items:[
+var PBO_UN_SEED={ts:1782432000000,items:[
   {text:'June 22 Meeting Agenda — Parade Decision',tag:'General',done:false},
   {text:'Reach Out to BoomUnit — Primary Parade Band',tag:'Parade',done:false},
   {text:'Send Contracts to Festival Drag Performers (Story Hour & Parade)',tag:'Drag Show',done:false},
@@ -674,7 +752,7 @@ function addPBO(){var t=($('pboIn').value||'').trim();if(!t)return;pboItems.push
 rPBO();
 
 // Credit & Financial Goals Action Items
-var ACT_SEED={ts:1750890000000,items:[
+var ACT_SEED={ts:1782432000000,items:[
   {text:'🚨 URGENT: Pay USAA car insurance $119.02 by Jul 16 — coverage lapses if missed',done:false},
   {text:'Pay Fortiva past-due ASAP (highest credit score impact per dollar)',done:false},
   {text:'Ask Fortiva for settlement offer expiration date ($1,135.80 on $1,622.57)',done:false},
@@ -751,7 +829,18 @@ function delRet(i){rets.splice(i,1);sv('returns_v2',rets);rrets();}
 rrets();
 
 // Grocery
-var groc=ld('grocery',[]);
+var GROC_SEED={ts:1782432000004,items:[
+  {text:"Thomas' bagels",done:false},{text:'Plain cream cheese',done:false},
+  {text:'BelliWelli fiber + probiotics drink (strawberry lemonade)',done:false},
+  {text:'Starbucks French roast coffee (caffeinated)',done:false},
+  {text:'Planet Oat French vanilla oat milk creamer',done:false},
+  {text:'Mozzarella string cheese sticks',done:false},
+  {text:'Sugar snap peas',done:false},{text:'Outshine fruit bars',done:false},
+  {text:'Yoplait yogurt',done:false},{text:'Granola',done:false},
+  {text:'Dried mango (Sunny Fruit)',done:false}
+]};
+(function seedGroc(){var s=ld('groc_seed_ts',0);if(GROC_SEED.ts>s){sv('grocery',GROC_SEED.items);sv('groc_seed_ts',GROC_SEED.ts);}})();
+var groc=ld('grocery',GROC_SEED.items);
 function rgroc(){
   var el=$('grl');
   if(!groc.length){el.innerHTML='<div class="empty">Your grocery list is empty</div>';return;}
@@ -765,7 +854,14 @@ $('gri').addEventListener('keydown',function(e){if(e.key==='Enter')addGr();});
 rgroc();
 
 // Lowe's
-var low=ld('lowes',[]);
+var LOW_SEED={ts:1782432000005,items:[
+  {text:'Fix garage door — get repair quote or parts',qty:'1',done:false},
+  {text:'Bamboo project — HDPE root barrier (30 mil recommended)',qty:'',done:false},
+  {text:'Bamboo project — landscape fabric',qty:'',done:false},
+  {text:'Bamboo project — stakes/edging',qty:'',done:false}
+]};
+(function seedLow(){var s=ld('low_seed_ts',0);if(LOW_SEED.ts>s){sv('lowes',LOW_SEED.items);sv('low_seed_ts',LOW_SEED.ts);}})();
+var low=ld('lowes',LOW_SEED.items);
 function rlow(){
   var el=$('lwl');
   if(!low.length){el.innerHTML='<div class="empty">Your list is empty</div>';return;}
@@ -946,7 +1042,7 @@ var DEFAULT_RECIPES=[
 {id:'rc5',title:'Risotto with Collards',source:'Southern Living',notes:'Ingredients:\n• 1/2 lb fresh collard greens\n• 1 small onion + 1 small carrot, finely chopped\n• 2 tbsp olive oil\n• 1 cup Arborio rice\n• 3 cloves garlic, finely chopped\n• 2 (14.5 oz) cans chicken broth\n• 1 cup grated Parmesan\n• Salt + pepper\n\nInstructions:\n1. Remove stems from collards; coarsely chop.\n2. Sauté onion + carrot in oil 2 min.\n3. Add garlic, rice, and collards.\n4. Add broth gradually, stirring until absorbed. Repeat until rice is creamy.\n5. Stir in Parmesan.',date:'Saved'},
 {id:'rc6',title:'Headache Balm',source:'Pinterest (Kristen Day)',notes:'Ingredients:\n• 1/4 cup coconut oil\n• 20 drops peppermint essential oil\n• 12 drops lavender essential oil\n• 10 drops frankincense essential oil\n\nInstructions:\n1. Melt coconut oil if solid.\n2. Add essential oils; stir well.\n3. Pour into small jar. Cool and set.\n\nApply to temples, forehead, or back of neck as needed.',date:'Saved'}
 ];
-(function seedRcp(){var s=ld('rcp_seed_ts',0);if(1750890000000>s){sv('recipes_v1',DEFAULT_RECIPES);sv('rcp_seed_ts',1750890000000);}})();
+(function seedRcp(){var s=ld('rcp_seed_ts',0);if(1782432000000>s){sv('recipes_v1',DEFAULT_RECIPES);sv('rcp_seed_ts',1782432000000);}})();
 var recipes=ld('recipes_v1',DEFAULT_RECIPES);
 function rRcp(){
   var el=$('rcpList');
@@ -1037,7 +1133,7 @@ var DEFAULT_QUOTES=[
 {id:'q9',text:'The feminine rage in me recognizes the feminine rage in you.',author:'',src:'@sage.speak'},
 {id:'q10',text:"I say 'no worries' a lot for someone who is 98% worried.",author:'',src:'@allure.artistry'}
 ];
-(function seedQts(){var s=ld('qts_seed_ts',0);if(1750890000000>s){sv('quotes_v1',DEFAULT_QUOTES);sv('qts_seed_ts',1750890000000);}})();
+(function seedQts(){var s=ld('qts_seed_ts',0);if(1782432000000>s){sv('quotes_v1',DEFAULT_QUOTES);sv('qts_seed_ts',1782432000000);}})();
 var quotes=ld('quotes_v1',DEFAULT_QUOTES);
 function rQts(){
   var el=$('qtsList');
@@ -1064,7 +1160,7 @@ var DEFAULT_LOCAL=[
 body:'TREES: Tree-of-Heaven, Mimosa, Chinaberry, Princess Tree, Bradford Pear, Chinese Tallowtree\n\nSHRUBS: Leatherleaf Mahonia, Japanese Barberry, Butterfly Bush, Russian Olive, Thorny Olive, Autumn Olive, Burning Bush, Japanese Privet, Chinese Privet, Fragrant Honeysuckle, Bush Honeysuckle, Heavenly Bamboo, Trifoliate Orange, Multiflora Rose, Salt Cedar\n\nVINES: Chocolate Vine, Porcelain Berry, Bushkiller, Oriental Bittersweet, Sweet Autumn Virgin\'s Bower, Wintercreeper, English Ivy, Japanese Honeysuckle, Mile-A-Minute Vine, Kudzu, Puncturevine, Japanese Wisteria, Chinese Wisteria\n\nGRASSES: Giant Reed, Deep-Rooted Sedge, Japanese Stilt Grass, Chinese Silvergrass, Wavyleaf Basketgrass, Reed Canarygrass, Common Reed, Golden Bamboo, Johnson Grass\n\nPERENNIALS: Garlic Mustard, Fig Buttercup, Ground Ivy, Giant Hogweed, Cogongrass, Yellowflag Iris, Bicolor Lespedeza, Chinese Lespedeza, Purple Loosestrife, Beefsteak Plant, Japanese Knotweed, Tropical Soda Apple, Common Chickweed, Asiatic Hawksbeard\n\nAQUATIC: Alligatorweed, Brazilian Waterweed, Hydrilla, Creeping Water Primrose, Parrot Feather, Crested Floating Heart, Giant Salvinia'},
 {id:'loc2',title:'Pittsboro Downtown Parking & Planning Project',src:'pittsboronc.gov/dppp',body:'Reference: www.pittsboronc.gov/dppp'}
 ];
-(function seedLoc(){var s=ld('loc_seed_ts',0);if(1750890000000>s){sv('local_v1',DEFAULT_LOCAL);sv('loc_seed_ts',1750890000000);}})();
+(function seedLoc(){var s=ld('loc_seed_ts',0);if(1782432000000>s){sv('local_v1',DEFAULT_LOCAL);sv('loc_seed_ts',1782432000000);}})();
 var locItems=ld('local_v1',DEFAULT_LOCAL);
 function rLoc(){
   var el=$('locList');
@@ -1102,6 +1198,129 @@ function delDaveItem(type,i){
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
+
+// ── DIET / FOOD JOURNAL ───────────────────────────────────────────────────
+var dietEntries=ld('diet_v1',[]);
+
+// ── DIET ENTRY SEED (June 22–25 food journal) ────────────────────────────────
+var DIET_SEED={ts:1782432000002,items:[
+  {ts:1782086400001,date:'2026-06-22',meal:'Supplement',food:'BelliWelli fiber + probiotics drink (strawberry lemonade)',notes:''},
+  {ts:1782086400002,date:'2026-06-22',meal:'Breakfast',food:"Half Thomas' bagel with plain cream cheese",notes:''},
+  {ts:1782086400003,date:'2026-06-22',meal:'Breakfast',food:'Coffee — French roast/decaf blend, oat milk creamer (Planet Oat French vanilla)',notes:''},
+  {ts:1782086400004,date:'2026-06-22',meal:'Lunch',food:'Half cup spicy nacho Doritos',notes:'⚠️ Spicy — watch stomach'},
+  {ts:1782086400005,date:'2026-06-22',meal:'Lunch',food:'Half cup sugar snap peas',notes:''},
+  {ts:1782086400006,date:'2026-06-22',meal:'Dinner',food:'Spaghetti — half cup noodles, half cup meat sauce (ground chuck, Prego chunky garden veg)',notes:''},
+  {ts:1782086400007,date:'2026-06-22',meal:'Dinner',food:'Quarter cup sugar snap peas',notes:''},
+  {ts:1782086400008,date:'2026-06-22',meal:'Dinner',food:'Oreo chocolate-dipped ice cream cone',notes:'⚠️ High-lactose dairy — likely trigger'},
+  {ts:1782086400009,date:'2026-06-22',meal:'Drink',food:'Bubly sparkling water (3–4 cans throughout day)',notes:''},
+  {ts:1782086400010,date:'2026-06-22',meal:'Drink',food:'Scercy Seltzer x3 (after dinner)',notes:'🚨 Symptoms: significant cramping + stomach pain after dinner. No gas/diarrhea. Likely: ice cream cone + carbonation.'},
+  {ts:1782172800001,date:'2026-06-23',meal:'Supplement',food:'BelliWelli fiber + probiotics drink (strawberry lemonade)',notes:''},
+  {ts:1782172800002,date:'2026-06-23',meal:'Breakfast',food:"Half Thomas' bagel with plain cream cheese",notes:''},
+  {ts:1782172800003,date:'2026-06-23',meal:'Breakfast',food:'Coffee — French roast/decaf blend, oat milk creamer',notes:''},
+  {ts:1782172800004,date:'2026-06-23',meal:'Snack',food:'Sesame sticks — approx 1/4 cup (⚠️ high sodium ~450mg, watch w/Losartan)',notes:''},
+  {ts:1782172800005,date:'2026-06-23',meal:'Snack',food:'Hillshire Farm oven roasted turkey — 3 slices (✅ good protein for Strattera)',notes:''},
+  {ts:1782172800006,date:'2026-06-23',meal:'Snack',food:'Great Value mozzarella string cheese — 1 stick (✅ low-lactose dairy — fine)',notes:''},
+  {ts:1782172800007,date:'2026-06-23',meal:'Snack',food:'Outshine cherry limeade fruit bar — 1 bar',notes:''},
+  {ts:1782172800008,date:'2026-06-23',meal:'Dinner',food:'Spaghetti — half cup noodles, half cup meat sauce (ground chuck, Prego chunky garden veg)',notes:''},
+  {ts:1782172800009,date:'2026-06-23',meal:'Drink',food:'Sparkling water x2 (earlier in day)',notes:''},
+  {ts:1782172800010,date:'2026-06-23',meal:'Drink',food:'Scercy Seltzer x3 (after dinner)',notes:''},
+  {ts:1782172800011,date:'2026-06-23',meal:'Drink',food:'Starbucks mocha choc chip Frappuccino — oat milk, decaf espresso (base contains milk)',notes:'✅ No cramping tonight. Carbonation similar to Mon but no ice cream. Dairy pattern: hard cheese OK, high-lactose (ice cream) triggers cramps.'},
+  {ts:1782259200001,date:'2026-06-24',meal:'Supplement',food:'BelliWelli fiber + probiotics drink (strawberry lemonade)',notes:''},
+  {ts:1782259200002,date:'2026-06-24',meal:'Breakfast',food:"Half Thomas' bagel with plain cream cheese",notes:''},
+  {ts:1782259200003,date:'2026-06-24',meal:'Breakfast',food:'Coffee — French roast/decaf blend, oat milk creamer',notes:''},
+  {ts:1782259200004,date:'2026-06-24',meal:'Lunch',food:'Sesame sticks — approx 1/4 cup',notes:''},
+  {ts:1782259200005,date:'2026-06-24',meal:'Lunch',food:'Mozzarella string cheese — 1 stick',notes:''},
+  {ts:1782259200006,date:'2026-06-24',meal:'Snack',food:'Outshine cherry limeade fruit bar — 1 bar',notes:''},
+  {ts:1782259200007,date:'2026-06-24',meal:'Dinner',food:'Fresh Express Santa Fe Style salad — romaine, chicken, Mexican cheese blend, fire roasted corn, tortilla strips, salsa ranch dressing',notes:''},
+  {ts:1782259200008,date:'2026-06-24',meal:'Snack',food:'Outshine cherry limeade fruit bar — 1 bar (with dinner)',notes:''},
+  {ts:1782259200009,date:'2026-06-24',meal:'Snack',food:"Hershey's Special Dark chocolate — a few pieces",notes:'✅ No cramping. Hard cheese and Mexican blend confirmed fine.'},
+  {ts:1782345600001,date:'2026-06-25',meal:'Supplement',food:'BelliWelli fiber + probiotics drink (strawberry lemonade)',notes:''},
+  {ts:1782345600002,date:'2026-06-25',meal:'Breakfast',food:"Half Thomas' bagel with plain cream cheese",notes:''},
+  {ts:1782345600003,date:'2026-06-25',meal:'Breakfast',food:'Coffee — French roast/decaf blend, oat milk creamer',notes:''},
+  {ts:1782345600004,date:'2026-06-25',meal:'Snack',food:'Sunny Fruit organic dried mango — 1 pack (20g) (✅ iron + natural energy)',notes:''},
+  {ts:1782345600005,date:'2026-06-25',meal:'Snack',food:'Yoplait Original yogurt — 1 cup (✅ probiotics break down lactose — OK)',notes:''},
+  {ts:1782345600006,date:'2026-06-25',meal:'Snack',food:"Nature's Promise organic granola — approx 2/3 cup (✅ 10% DV iron)",notes:''},
+  {ts:1782345600007,date:'2026-06-25',meal:'Snack',food:"Hershey's Special Dark chocolate — a few pieces",notes:'✅ Stomach fine. Third day in a row with no cramping.'}
+]};
+(function seedDiet(){var s=ld('diet_seed_ts',0);if(DIET_SEED.ts>s){sv('diet_v1',DIET_SEED.items);sv('diet_seed_ts',DIET_SEED.ts);}})();
+dietEntries=ld('diet_v1',DIET_SEED.items);
+
+// ── MEDICATIONS SEED ──────────────────────────────────────────────────────────
+var MED_SEED={ts:1782432000003,items:[
+  {name:'Atomoxetine (Strattera) 40mg',freq:'☀️ Morning — 1 capsule',notes:'Protein at breakfast boosts effectiveness. Space away from Magnesium. Caffeine may increase heart rate.'},
+  {name:'Atomoxetine (Strattera) 10mg ×2',freq:'🌙 Evening — 2 capsules (20mg total)',notes:'High-fat meals can intensify side effects.'},
+  {name:'Pantoprazole (Protonix) 20mg',freq:'⏰ TWICE DAILY — 30-60 min BEFORE meals',notes:'Long-term use depletes B12, Magnesium, Calcium, Iron, Zinc. Avoid iron-rich foods right after dose.'},
+  {name:'Vilazodone (Viibryd) 10mg',freq:'🍳 Morning — WITH FOOD (required)',notes:'Empty stomach = 50% less absorption. Depletes Folate — eat leafy greens, lentils, fortified grains.'},
+  {name:'Pregabalin (Lyrica) 75mg',freq:'Daily as directed',notes:'B vitamins support nerve health. Consistent timing matters.'},
+  {name:'Estradiol 0.5mg',freq:'Daily — 1 tablet',notes:'Increases need for B6 (chicken, fish, potatoes) and Zinc.'},
+  {name:'Losartan (blood pressure)',freq:'Daily — 1 tablet',notes:'🥑 Can raise potassium — moderate bananas, avocado, sweet potato, oranges. Not eliminated, just not in large daily amounts.'},
+  {name:'Cetirizine (Zyrtec) 10mg',freq:'As needed — antihistamine',notes:''},
+  {name:'Magnesium Glycinate (Pure Encapsulations)',freq:'Daily supplement',notes:'Best-absorbed form. Space away from Strattera doses.'},
+  {name:'Nature Made Multi 50+ For Her',freq:'Daily supplement',notes:'Check B12 % on label — critical given twice-daily Pantoprazole.'},
+  {name:'L-Lysine 1000mg',freq:'Daily supplement',notes:'Mention to prescriber — on alongside many other medications.'},
+  {name:'BelliWelli fiber + probiotics drink',freq:'Daily',notes:'4g fiber + probiotics. 100mg potassium (modest). Introduce slowly post-virus.'}
+]};
+(function seedMeds(){var s=ld('med_seed_ts',0);if(MED_SEED.ts>s){sv('diet_meds_v1',MED_SEED.items);sv('med_seed_ts',MED_SEED.ts);}})();
+
+function todayDate(){return new Date().toISOString().split('T')[0];}
+(function(){var d=$('dietDate');if(d)d.value=todayDate();})();
+function rDiet(){
+  var el=$('dietList');
+  if(!el)return;
+  if(!dietEntries.length){el.innerHTML='<div class="empty">No entries yet — log your first meal!</div>';return;}
+  var sorted=dietEntries.slice().sort(function(a,b){return b.ts-a.ts;});
+  el.innerHTML=sorted.map(function(e,i){
+    var idx=dietEntries.indexOf(e);
+    var emoji=e.meal==='Breakfast'?'☀️':e.meal==='Lunch'?'🌤️':e.meal==='Dinner'?'🌙':e.meal==='Drink'?'🥤':e.meal==='Supplement'?'💊':'🍎';
+    return '<div style="padding:10px 0;border-bottom:1px solid var(--bd)">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">'
+      +'<span style="font-weight:600;font-size:13px">'+emoji+' '+e.meal+'</span>'
+      +'<span style="font-size:11px;color:var(--mu)">'+e.date+'</span>'
+      +'</div>'
+      +'<div style="font-size:14px;margin-bottom:4px">'+e.food+'</div>'
+      +(e.notes?'<div style="font-size:12px;color:var(--mu);font-style:italic">'+e.notes+'</div>':'')
+      +'<button class="del" style="margin-top:4px" onclick="delDiet('+idx+')">× Remove</button>'
+      +'</div>';
+  }).join('');
+}
+function addDiet(){
+  var food=($('dietFood').value||'').trim();
+  if(!food)return;
+  var entry={ts:Date.now(),date:$('dietDate').value||todayDate(),meal:$('dietMeal').value,food:food,notes:($('dietNotes').value||'').trim()};
+  dietEntries.push(entry);
+  sv('diet_v1',dietEntries);
+  $('dietFood').value='';$('dietNotes').value='';$('dietDate').value=todayDate();
+  rDiet();
+}
+function delDiet(i){dietEntries.splice(i,1);sv('diet_v1',dietEntries);rDiet();}
+rDiet();
+
+// Diet — Medication display
+function rMeds(){
+  var medData=ld('diet_meds_v1',MED_SEED.items);
+  var el=$('dietMedList');
+  if(!el)return;
+  el.innerHTML=medData.map(function(m){
+    return '<div style="padding:8px 0;border-bottom:1px solid var(--bd)">'
+      +'<div style="font-weight:600;font-size:14px">💊 '+m.name+'</div>'
+      +'<div style="font-size:11px;font-weight:600;color:var(--go);margin:2px 0">'+m.freq+'</div>'
+      +(m.notes?'<div style="font-size:12px;color:var(--mu)">'+m.notes+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+rMeds();
+
+
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  rRcp();rQts();rLoc();rBksMy();rBks100();rMovMy();rMov100();
+  if(typeof rDiet==='function')rDiet();
+  if(typeof rMeds==='function')rMeds();
+  if(typeof rDave==='function')rDave();
+});
 </script>
 
 <!-- LIFE -->
@@ -1151,4 +1370,111 @@ function delDaveItem(type,i){
         <input type="text" id="bksA" placeholder="Author">
         <button class="wsb" onclick="addBk()">Add Book</button>
       </div>
-    <
+    <div class="card"><div class="ch">📚 Indigenous History Reading List <span id="bksCt" style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;margin-left:4px"></span></div>
+      <div class="cb" id="bksList100"></div>
+    </div>
+  </div>
+
+  <div id="lf-qts" style="display:none">
+    <div class="card"><div class="ch">💬 Quotes &amp; Inspiration</div><div class="cb">
+      <div id="qtsList"></div>
+      <div class="lf-form" style="margin-top:4px">
+        <input type="text" id="qtText" placeholder="Quote text">
+        <input type="text" id="qtAuth" placeholder="Author or @handle">
+        <button class="wsb" onclick="addQt()">Save Quote</button>
+      </div>
+    </div></div>
+  </div>
+
+  <div id="lf-loc" style="display:none">
+    <div class="card"><div class="ch">📍 Local Reference</div><div class="cb">
+      <div id="locList"></div>
+    </div></div>
+  </div>
+
+  <div id="lf-dav" style="display:none">
+    <div class="card">
+      <div class="ch">🍺 Beer Preferences</div>
+      <div class="cb">
+        <div style="font-size:14px;line-height:1.5" id="davBeer"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch" style="justify-content:space-between">🎁 Gift Ideas
+        <button class="del" style="color:var(--pu);font-size:13px;font-weight:600" onclick="togDaveForm('gift')">+ Add</button>
+      </div>
+      <div class="cb">
+        <div id="daveGiftForm" style="display:none;margin-bottom:8px">
+          <div style="display:flex;gap:6px">
+            <input class="gw" type="text" id="davGiftIn" placeholder="Gift idea…">
+            <button class="sb" onclick="addDaveItem('gift')">Add</button>
+          </div>
+        </div>
+        <div id="davGifts"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch" style="justify-content:space-between">⭐ Favorites
+        <button class="del" style="color:var(--pu);font-size:13px;font-weight:600" onclick="togDaveForm('fav')">+ Add</button>
+      </div>
+      <div class="cb">
+        <div id="daveFavForm" style="display:none;margin-bottom:8px">
+          <div style="display:flex;gap:6px;margin-bottom:6px">
+            <input class="gw" type="text" id="davFavCat" placeholder="Category (food, music…)">
+          </div>
+          <div style="display:flex;gap:6px">
+            <input class="gw" type="text" id="davFavItem" placeholder="Item…">
+            <button class="sb" onclick="addDaveItem('fav')">Add</button>
+          </div>
+        </div>
+        <div id="davFavs"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch" style="justify-content:space-between">📅 Things To Do Together
+        <button class="del" style="color:var(--pu);font-size:13px;font-weight:600" onclick="togDaveForm('todo')">+ Add</button>
+      </div>
+      <div class="cb">
+        <div id="daveTodoForm" style="display:none;margin-bottom:8px">
+          <div style="display:flex;gap:6px">
+            <input class="gw" type="text" id="davTodoIn" placeholder="Something to do together…">
+            <button class="sb" onclick="addDaveItem('todo')">Add</button>
+          </div>
+        </div>
+        <div id="davTodos"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /p-life -->
+
+<!-- DIET -->
+<div class="panel" id="p-diet">
+  <div class="card">
+    <div class="ch">🥗 Food Journal</div>
+    <div class="cb">
+      <div id="dietList"></div>
+      <div style="margin-top:12px">
+        <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap">
+          <select id="dietMeal" style="border:1px solid var(--bd);border-radius:8px;padding:9px;font:inherit;font-size:13px;background:var(--bg);color:var(--tx);flex:1">
+            <option value="Breakfast">☀️ Breakfast</option>
+            <option value="Lunch">🌤️ Lunch</option>
+            <option value="Dinner">🌙 Dinner</option>
+            <option value="Snack">🍎 Snack</option>
+            <option value="Drink">🥤 Drink</option>
+            <option value="Supplement">💊 Supplement/Med</option>
+          </select>
+          <input id="dietDate" type="date" style="border:1px solid var(--bd);border-radius:8px;padding:9px;font:inherit;font-size:13px;background:var(--bg);color:var(--tx);flex:1">
+        </div>
+        <textarea id="dietFood" rows="2" placeholder="What did you eat?" style="width:100%;border:1px solid var(--bd);border-radius:8px;padding:10px;font:inherit;font-size:14px;background:var(--bg);color:var(--tx);resize:vertical;margin-bottom:6px"></textarea>
+        <textarea id="dietNotes" rows="2" placeholder="Notes — how did you feel? Symptoms? Energy level?" style="width:100%;border:1px solid var(--bd);border-radius:8px;padding:10px;font:inherit;font-size:14px;background:var(--bg);color:var(--tx);resize:vertical;margin-bottom:8px"></textarea>
+        <button class="cap-btn" onclick="addDiet()">+ Log Entry</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch">💊 Medication Reminders</div>
+    <div class="cb" id="dietMedList"></div>
+  </div>
+</div>
+
