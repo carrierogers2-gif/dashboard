@@ -202,14 +202,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <div class="tabs">
   <button class="tab active" onclick="sw('home',this)">🏠 Home</button>
-  <button class="tab" onclick="sw('pbo',this)">🏳️‍🌈 PBO</button>
-  <button class="tab" onclick="sw('fin',this)">💰 Finance</button>
-  <button class="tab" onclick="sw('home2',this)">🔨 Home</button>
-  <button class="tab" onclick="sw('jobs',this)">💼 Jobs</button>
   <button class="tab" onclick="sw('lists',this)">📦 Lists</button>
-  <button class="tab" onclick="sw('contacts',this)">📋 Contacts</button>
-  <button class="tab" onclick="sw('events',this)">🎪 Events</button>
+  <button class="tab" onclick="sw('fin',this)">💰 Finance</button>
   <button class="tab" onclick="sw('life',this)">📚 Life</button>
+  <button class="tab" onclick="sw('home2',this)">🔨 Home</button>
+  <button class="tab" onclick="sw('pbo',this)">🏳️‍🌈 PBO Pride</button>
+  <button class="tab" onclick="sw('events',this)">🎪 Events</button>
+  <button class="tab" onclick="sw('contacts',this)">📋 Contacts</button>
 </div>
 
 <!-- HOME -->
@@ -224,7 +223,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <option value="ec">Event Co.</option>
         <option value="fin">Finance</option>
         <option value="him">Home Projects</option>
-        <option value="job">Job Search</option>
       </select>
     </div>
     <button class="cap-btn" onclick="cap()">Capture It ⚡</button>
@@ -248,13 +246,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="card">
     <div class="ch">🏳️‍🌈 PBO Pride 2026 — Entertainment Tasks</div>
     <div class="cb">
-      <div class="sec">⚡ Up Next</div>
-      <div class="task"><div class="ti">⚡</div><div><div class="tt">June 22 Meeting Agenda — Parade Decision</div><div class="tm2"><span class="bd bdr">🚨 Jun 22</span><span class="bd bdx">General</span></div></div></div>
-      <div class="task"><div class="ti">⚡</div><div><div class="tt">Reach Out to BoomUnit — Primary Parade Band</div><div class="tm2"><span class="bd bdg">Parade</span><span class="bd bdx">Jun</span></div></div></div>
-      <div class="task"><div class="ti">⚡</div><div><div class="tt">Send Contracts to Festival Drag Performers (Story Hour &amp; Parade)</div><div class="tm2"><span class="bd bdg">Drag Show</span><span class="bd bdx">Late Jun</span></div></div></div>
-      <div class="task"><div class="ti">⚡</div><div><div class="tt">Share Drag Performer Flat Rate with Rob</div><div class="tm2"><span class="bd bdg">Drag Show</span></div></div></div>
-      <div class="task"><div class="ti">⚡</div><div><div class="tt">Confirm Jolene's Dance Studio Contact for Parade</div><div class="tm2"><span class="bd bdg">Parade</span></div></div></div>
-      <div class="task"><div class="ti">⚡</div><div><div class="tt">Ask Drag Performers to Stay for Parade</div><div class="tm2"><span class="bd bdg">Parade</span></div></div></div>
+      <div class="sec">⚡ Up Next <span style="font-size:11px;font-weight:400;color:var(--mu);text-transform:none;letter-spacing:0">(check off as you update Trello)</span></div>
+      <div id="pbo-upnext"></div>
+      <div class="ar" style="margin-top:6px">
+        <input class="gw" type="text" id="pboIn" placeholder="Add item…">
+        <button class="sb" onclick="addPBO()">Add</button>
+      </div>
       <div class="sec">📋 To Do</div>
       <div class="task"><div class="ti">🔲</div><div><div class="tt">Recruit Additional Parade Participants</div><div class="tm2"><span class="bd bdb">Parade</span><span class="bd bdx">Late Jun</span></div></div></div>
       <div class="task"><div class="ti">🔲</div><div><div class="tt">Send Contracts to Main Stage Drag Artists (lineup pending)</div><div class="tm2"><span class="bd bdb">Drag Show</span></div></div></div>
@@ -279,19 +276,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div class="st"><div class="sn" id="bod" style="color:var(--rd)">—</div><div class="sl">Overdue</div></div>
         <div class="st"><div class="sn" id="bpd">—</div><div class="sl">Paid ✓</div></div>
       </div>
-      <div class="sec">📈 Credit Score Goal <button class="cs-hide-btn" id="csHideBtn" onclick="togCS()">👁 Hide</button></div>
-      <div id="csWrap">
-        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px">
-          <div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;color:var(--mu)">Current</span><input type="number" id="csn" min="300" max="850" style="width:72px;border:1px solid var(--bd);border-radius:7px;padding:8px;font:inherit;font-size:14px;background:var(--bg);outline:none" placeholder="620"></div>
-          <div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;color:var(--mu)">Goal</span><input type="number" id="csg" min="300" max="850" style="width:72px;border:1px solid var(--bd);border-radius:7px;padding:8px;font:inherit;font-size:14px;background:var(--bg);outline:none" placeholder="750"></div>
-          <button class="sb" style="padding:8px 12px" onclick="saveCS()">Save</button>
-        </div>
-        <div id="csw" style="display:none">
-          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span id="csl"></span><span style="font-weight:700;color:var(--pu)" id="csp"></span></div>
-          <div class="pb"><div class="pf" id="csf" style="width:0%"></div></div>
-          <div style="font-size:12px;color:var(--mu);margin-top:4px" id="csno"></div>
-        </div>
-      </div>
+
       <div class="sec" style="margin-top:10px">🏷️ Rebates <span id="rbUpdLbl" class="rb-upd"></span></div>
       <div id="rbl"></div>
       <div class="sec" style="margin-top:10px">📋 Monthly Bills — <span id="bmo" style="text-transform:none;font-weight:400"></span></div>
@@ -308,6 +293,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <input type="text" id="exd" style="width:80px" placeholder="Date">
         <button class="sb" onclick="addExp()">Add</button>
       </div>
+      <div class="sec" style="margin-top:10px">🎯 Credit &amp; Financial Goals</div>
+      <div id="actl"></div>
       <div id="cfin" style="display:none"><div class="sec" style="margin-top:10px">⚡ Finance Notes</div><ul class="cl" id="cfinl"></ul></div>
     </div>
   </div>
@@ -330,38 +317,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <!-- JOBS -->
-<div class="panel" id="p-jobs">
-  <div class="card">
-    <div class="ch">💼 Job Search Tracker</div>
-    <div class="cb">
-      <div class="sec">📌 Saved — Apply Soon</div>
-      <div id="jsl"></div>
-      <div class="sec" style="margin-top:4px">📨 Active Applications</div>
-      <div id="jal"></div>
-      <div class="sec" style="margin-top:4px">🗄️ Archived</div>
-      <div id="jarl"></div>
-      <div class="sec" style="margin-top:8px">➕ Add a Job</div>
-      <div class="ar">
-        <input class="gw" type="text" id="jro" placeholder="Job title">
-        <input class="gw" type="text" id="jco" placeholder="Company">
-      </div>
-      <div class="ar" style="margin-top:7px"><input class="gw" type="url" id="jur" placeholder="Job posting URL (optional)"></div>
-      <div class="ar" style="margin-top:7px">
-        <select id="jst" class="gw">
-          <option value="saved">📌 Saved (apply later)</option>
-          <option value="applied">✉️ Applied</option>
-          <option value="responded">💬 Responded</option>
-          <option value="interview1">📅 Interview 1</option>
-          <option value="interview2">📅 Interview 2</option>
-          <option value="interview3">📅 Interview 3</option>
-          <option value="offer">🎉 Offer!</option>
-        </select>
-        <button class="sb" onclick="addJob()">Add</button>
-      </div>
-    </div>
-  </div>
-  <div class="card" id="cjobc" style="display:none"><div class="ch">⚡ Job Search Notes</div><div class="cb"><ul class="cl" id="cjobl"></ul></div></div>
-</div>
+
 
 <!-- LISTS -->
 <div class="panel" id="p-lists">
@@ -475,83 +431,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- EVENTS -->
 <div class="panel" id="p-events">
-  <div class="stabs" id="ev-tabs">
-    <button class="stab active" onclick="swe('ideas',this)">🎪 Ideas</button>
-    <button class="stab" onclick="swe('out',this)">📞 Outreach</button>
-    <button class="stab" onclick="swe('cert',this)">🏆 Certs &amp; Grants</button>
-    <button class="stab" onclick="swe('proj',this)">📁 Projects</button>
-  </div>
-
-  <div id="ev-ideas">
-    <div class="card">
-      <div class="ch">🎪 Event Planning Co. — Ideas &amp; Research</div>
-      <div class="cb">
-        <div id="ecl"><div class="empty">No ideas yet!</div></div>
-        <div class="ar" style="margin-top:10px">
-          <input class="gw" type="text" id="eci" placeholder="Add an idea or research note…">
-          <button class="sb" onclick="addEC()">Add</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="ev-out" style="display:none">
-    <div class="card">
-      <div class="ch">📞 Business Outreach</div>
-      <div class="cb">
-        <div id="boutl"></div>
-        <div class="sec" style="margin-top:8px">➕ Add Contact</div>
-        <div class="ar">
-          <input class="gw" type="text" id="boutn" placeholder="Name">
-          <input class="gw" type="text" id="boutr" placeholder="Why / what to pitch">
-        </div>
-        <div class="ar" style="margin-top:7px">
-          <select id="bouts" class="gw">
-            <option value="todo">📋 Draft message</option>
-            <option value="sent">📨 Message sent</option>
-            <option value="connected">✅ Connected</option>
-            <option value="hold">⏸ On hold</option>
-          </select>
-          <button class="sb" onclick="addBOut()">Add</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="ev-cert" style="display:none">
-    <div class="card">
-      <div class="ch">🏆 Certifications &amp; Grants</div>
-      <div class="cb">
-        <div id="certl"></div>
-        <div class="sec" style="margin-top:8px">➕ Add Item</div>
-        <div class="ar">
-          <input class="gw" type="text" id="certn" placeholder="Certification or grant name">
-          <select id="certs" class="gw">
-            <option value="todo">📋 To Do</option>
-            <option value="active">⚡ In Progress</option>
-            <option value="done">✅ Complete</option>
-          </select>
-          <button class="sb" onclick="addCert()">Add</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="ev-proj" style="display:none">
-    <div class="card">
-      <div class="ch">📁 Active Projects</div>
-      <div class="cb">
-        <div id="evprl"></div>
-        <div class="sec" style="margin-top:8px">➕ Add Project</div>
-        <div class="ar">
-          <input class="gw" type="text" id="evprn" placeholder="Project name">
-          <select id="evprs" class="gw">
-            <option value="active">⚡ Active</option>
-            <option value="planned">📋 Planned</option>
-            <option value="done">✅ Done</option>
-          </select>
-          <button class="sb" onclick="addEvPr()">Add</button>
-        </div>
+  <div class="card">
+    <div class="ch">🎪 Event Planning Co. — Ideas &amp; Research</div>
+    <div class="cb">
+      <div id="ecl"><div class="empty">No ideas yet!</div></div>
+      <div class="ar" style="margin-top:10px">
+        <input class="gw" type="text" id="eci" placeholder="Add an idea or research note…">
+        <button class="sb" onclick="addEC()">Add</button>
       </div>
     </div>
   </div>
@@ -641,14 +527,7 @@ function racaps(){
 }
 racaps();
 
-// Event Co - sub-tab switcher
-function swe(id,btn){
-  document.querySelectorAll('#ev-tabs .stab').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  ['ideas','out','cert','proj'].forEach(function(s){$('ev-'+s).style.display=s===id?'block':'none';});
-}
-
-// Event Co - Ideas
+// Event Co
 var ecItems=ld('ec_items',[]);
 function rEC(){
   var el=$('ecl'),caps=lcap('ec'),all=caps.map(function(c){return c.text;}).concat(ecItems);
@@ -661,100 +540,7 @@ function addEC(){var t=$('eci').value.trim();if(!t)return;ecItems.push(t);sv('ec
 function delEC(i){ecItems.splice(i,1);sv('ec_items',ecItems);rEC();}
 $('eci').addEventListener('keydown',function(e){if(e.key==='Enter')addEC();});
 
-// Event Co - Business Outreach
-var BOUT_DEFAULT=[
-  {name:'Tiffany Drummond Armstrong',reason:'Intro & services pitch',status:'todo',date:'Jun 22'},
-  {name:'Rebecca Dickenson',reason:'Chatham Chamber / Leadership Chatham',status:'todo',date:'Jun 22'},
-  {name:'Cheryl Littleton',reason:'Chatham Chamber / Leadership Chatham',status:'todo',date:'Jun 22'},
-  {name:'Marshall & Melissa Rich',reason:'Education fundraiser concept',status:'todo',date:'Jun 22'},
-  {name:'Jennie Knowlton',reason:'Quiltmaker Café supper club pitch',status:'todo',date:'Jun 22'},
-  {name:'Heather Scott',reason:'HR professional — intro & referral ask',status:'todo',date:'Jun 22'},
-  {name:'Sarah Merritt',reason:'NAMI NC statewide conference (Nov 2026, Greensboro)',status:'todo',date:'Jun 22'}
-];
-var bouts=ld('boutreach',null);
-if(bouts===null){bouts=BOUT_DEFAULT;sv('boutreach',bouts);}
-var BOST={todo:{lb:'📋 Draft',cl:'background:#f0ece6;color:var(--mu)'},sent:{lb:'📨 Sent',cl:'background:var(--blt);color:var(--bl)'},connected:{lb:'✅ Connected',cl:'background:var(--gnlt);color:var(--gn)'},hold:{lb:'⏸ Hold',cl:'background:#fef9e7;color:#b7950b'}};
-function rbouts(){
-  var el=$('boutl');
-  if(!bouts.length){el.innerHTML='<div class="empty">No outreach contacts yet!</div>';return;}
-  el.innerHTML=bouts.map(function(r,i){
-    var st=BOST[r.status]||BOST.todo;
-    return '<div class="rhc"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="rhn">'+r.name+'</div>'+(r.reason?'<div class="rhr">📌 '+r.reason+'</div>':'')+'</div><button class="del" onclick="delBOut('+i+')">×</button></div><div class="rhm"><span style="font-size:11px;border-radius:4px;padding:2px 7px;font-weight:600;'+st.cl+'">'+st.lb+'</span>'+(r.date?'<span class="bd bdx" style="margin-left:4px">'+r.date+'</span>':'')+'<select class="msel" onchange="updBOut('+i+',this.value)" style="margin-left:6px">'+['todo','sent','connected','hold'].map(function(k){var s=BOST[k];return '<option value="'+k+'" '+(r.status===k?'selected':'')+'>'+s.lb+'</option>';}).join('')+'</select></div></div>';
-  }).join('');
-}
-function addBOut(){var n=$('boutn').value.trim(),r=$('boutr').value.trim(),s=$('bouts').value;if(!n)return;var d=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});bouts.unshift({name:n,reason:r,status:s,date:d});sv('boutreach',bouts);$('boutn').value='';$('boutr').value='';rbouts();}
-function updBOut(i,s){bouts[i].status=s;sv('boutreach',bouts);rbouts();}
-function delBOut(i){bouts.splice(i,1);sv('boutreach',bouts);rbouts();}
-rbouts();
 
-// Event Co - Certifications & Grants
-var CERT_DEFAULT=[
-  {name:'WBENC (via WBEC East)',status:'todo',note:'Highest leverage — opens corporate supplier diversity & Fortune 500 procurement'},
-  {name:'NC HUB — NC Dept. of Administration',status:'todo',note:'State-level relevance to NC State relationship'},
-  {name:'City of Raleigh Mini-Grant',status:'todo',note:'Near-term fit'},
-  {name:'Amber Grant',status:'todo',note:'Rolling monthly — needs polished one-page business description first'},
-  {name:'Carolina Small Business Development Fund',status:'todo',note:'Free advising + certification support'}
-];
-var certs=ld('evCerts',null);
-if(certs===null){certs=CERT_DEFAULT;sv('evCerts',certs);}
-var CEST={todo:{lb:'📋 To Do',cl:'background:#f0ece6;color:var(--mu)'},active:{lb:'⚡ In Progress',cl:'background:var(--blt);color:var(--bl)'},done:{lb:'✅ Complete',cl:'background:var(--gnlt);color:var(--gn)'}};
-function rcerts(){
-  var el=$('certl');
-  if(!certs.length){el.innerHTML='<div class="empty">No items yet!</div>';return;}
-  el.innerHTML=certs.map(function(c,i){
-    var st=CEST[c.status]||CEST.todo;
-    return '<div class="proj" style="flex-wrap:wrap;gap:4px"><span style="font-size:11px;border-radius:4px;padding:2px 7px;font-weight:600;white-space:nowrap;'+st.cl+'">'+st.lb+'</span><span class="pt" style="flex:1;min-width:120px">'+c.name+(c.note?'<div style="font-size:12px;color:var(--mu);font-weight:400;margin-top:2px">'+c.note+'</div>':'')+'</span><select class="msel" onchange="updCert('+i+',this.value)">'+['todo','active','done'].map(function(k){return '<option value="'+k+'" '+(c.status===k?'selected':'')+'>'+CEST[k].lb+'</option>';}).join('')+'</select><button class="del" onclick="delCert('+i+')">×</button></div>';
-  }).join('');
-}
-function addCert(){var n=$('certn').value.trim(),s=$('certs').value;if(!n)return;certs.push({name:n,status:s,note:''});sv('evCerts',certs);$('certn').value='';rcerts();}
-function updCert(i,s){certs[i].status=s;sv('evCerts',certs);rcerts();}
-function delCert(i){certs.splice(i,1);sv('evCerts',certs);rcerts();}
-rcerts();
-
-// Event Co - Active Projects
-var EVPR_DEFAULT=[
-  {name:'PBOPride Festival "Rooted & Rising" — Year 3',status:'active',note:'October 2026'},
-  {name:'NC State CERSA Temp Role',status:'active',note:'Workshop with Danesha Seth Carley — income bridge + portfolio piece'},
-  {name:'NAMI NC Statewide Conference (Sarah Merritt lead)',status:'planned',note:'Greensboro, November 2026'},
-  {name:'Rise & Lead — Leadership Program for HS Women',status:'planned',note:'On hold — meaningful portfolio opportunity'},
-  {name:'Business Name Check: "Chapter & Bloom"',status:'planned',note:'Local name conflict search needed before committing'}
-];
-var evprs=ld('evProjects',null);
-if(evprs===null){evprs=EVPR_DEFAULT;sv('evProjects',evprs);}
-var EVPST={active:{lb:'⚡ Active',cl:'background:var(--blt);color:var(--bl)'},planned:{lb:'📋 Planned',cl:'background:#f0ece6;color:var(--mu)'},done:{lb:'✅ Done',cl:'background:var(--gnlt);color:var(--gn)'}};
-function revprs(){
-  var el=$('evprl');
-  if(!evprs.length){el.innerHTML='<div class="empty">No projects yet!</div>';return;}
-  el.innerHTML=evprs.map(function(p,i){
-    var st=EVPST[p.status]||EVPST.planned;
-    return '<div class="proj" style="flex-wrap:wrap;gap:4px"><span style="font-size:11px;border-radius:4px;padding:2px 7px;font-weight:600;white-space:nowrap;'+st.cl+'">'+st.lb+'</span><span class="pt" style="flex:1;min-width:120px">'+p.name+(p.note?'<div style="font-size:12px;color:var(--mu);font-weight:400;margin-top:2px">'+p.note+'</div>':'')+'</span><select class="msel" onchange="updEvPr('+i+',this.value)">'+['active','planned','done'].map(function(k){return '<option value="'+k+'" '+(p.status===k?'selected':'')+'>'+EVPST[k].lb+'</option>';}).join('')+'</select><button class="del" onclick="delEvPr('+i+')">×</button></div>';
-  }).join('');
-}
-function addEvPr(){var n=$('evprn').value.trim(),s=$('evprs').value;if(!n)return;evprs.push({name:n,status:s,note:''});sv('evProjects',evprs);$('evprn').value='';revprs();}
-function updEvPr(i,s){evprs[i].status=s;sv('evProjects',evprs);revprs();}
-function delEvPr(i){evprs.splice(i,1);sv('evProjects',evprs);revprs();}
-$('evprn').addEventListener('keydown',function(e){if(e.key==='Enter')addEvPr();});
-revprs();
-
-// Credit score + hide toggle
-var _csHidden=false;
-function togCS(){
-  _csHidden=!_csHidden;
-  $('csWrap').style.display=_csHidden?'none':'block';
-  $('csHideBtn').textContent=_csHidden?'👁 Show':'👁 Hide';
-}
-$('csn').value=ld('cs',{}).now||'';$('csg').value=ld('cs',{}).goal||'';
-function saveCS(){sv('cs',{now:parseInt($('csn').value)||0,goal:parseInt($('csg').value)||0});rCS();}
-function rCS(){
-  var d=ld('cs',{}),now=parseInt(d.now)||0,goal=parseInt(d.goal)||0;
-  if(!now||!goal){$('csw').style.display='none';return;}
-  $('csw').style.display='block';
-  var pct=Math.min(100,Math.max(0,Math.round(((now-300)/(goal-300))*100)));
-  $('csf').style.width=pct+'%';$('csp').textContent=pct+'%';
-  $('csl').textContent='Score: '+now+' → '+goal;
-  $('csno').textContent=goal>now?(goal-now)+' points to go!':'🎉 Goal reached!';
-}
-rCS();
 
 // ── REBATES ──────────────────────────────────────────────────────────────────
 // REBATE_SEED_START — auto-updated by weekly rebate checker task, do not edit this line
@@ -806,7 +592,15 @@ rRebates();
 // Bills
 $('bmo').textContent=new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'});
 var tod=new Date().getDate();
-var bills=ld('bills_v2',[{name:'Rent/Mortgage',day:1,paid:false},{name:'Utilities',day:15,paid:false},{name:'Internet',day:20,paid:false},{name:'Phone',day:25,paid:false}]);
+var BILLS_SEED={ts:1750890000000,items:[
+  {name:'NAF (Mortgage)',day:1,paid:false},{name:'CareCredit',day:1,paid:false},{name:'YMCA',day:1,paid:false},
+  {name:'Duke Power',day:6,paid:false},{name:'Fortiva',day:6,paid:false},{name:'CarMax (Kia)',day:6,paid:false},{name:'Target Circle Card',day:6,paid:false},
+  {name:'Brightspeed',day:10,paid:false},{name:'Milestone',day:11,paid:false},{name:'Lemonade — Friend',day:13,paid:false},
+  {name:'AFS auto-draft',day:15,paid:false},{name:'Seen Card',day:15,paid:false},{name:'USAA Car Insurance',day:16,paid:false},
+  {name:'Lemonade — Lina',day:17,paid:false},{name:'Verizon',day:25,paid:false},{name:'Affirm',day:28,paid:false},{name:'Apple Card',day:28,paid:false}
+]};
+(function seedBills(){var s=ld('bills_seed_ts',0);if(BILLS_SEED.ts>s){sv('bills_v2',BILLS_SEED.items);sv('bills_seed_ts',BILLS_SEED.ts);}})();
+var bills=ld('bills_v2',BILLS_SEED.items);
 function rbills(){
   var el=$('bll');
   var up=bills.filter(function(b){return !b.paid;}),od=bills.filter(function(b){return !b.paid&&b.day<tod;}),pd=bills.filter(function(b){return b.paid;});
@@ -823,7 +617,13 @@ function delBill(i){bills.splice(i,1);sv('bills_v2',bills);rbills();}
 rbills();
 
 // Expenses
-var exps=ld('expenses',[]);
+var EXP_SEED={ts:1750890000000,items:[
+  {name:'Car repair deductible (MaxCare)',date:'TBD — $250'},{name:'New brakes',date:'TBD'},
+  {name:'Lina vet shots (tech-only)',date:'TBD'},{name:'Tax bill ($1,500)',date:'Oct 15'},
+  {name:'Fix Garage Door',date:'TBD'},{name:'Bamboo Project',date:'TBD'}
+]};
+(function seedExps(){var s=ld('exp_seed_ts',0);if(EXP_SEED.ts>s){sv('expenses',EXP_SEED.items);sv('exp_seed_ts',EXP_SEED.ts);}})();
+var exps=ld('expenses',EXP_SEED.items);
 function rexps(){
   var el=$('exl');
   if(!exps.length){el.innerHTML='<div class="empty" style="padding:4px 0">No upcoming expenses yet.</div>';return;}
@@ -849,6 +649,55 @@ function updHP(i,s){hps[i].status=s;sv('homeProjects',hps);rhp();}
 function delHP(i){hps.splice(i,1);sv('homeProjects',hps);rhp();}
 $('hpi').addEventListener('keydown',function(e){if(e.key==='Enter')addHP();});
 rhp();
+
+// PBO Up Next
+var PBO_UN_SEED={ts:1750890000000,items:[
+  {text:'June 22 Meeting Agenda — Parade Decision',tag:'General',done:false},
+  {text:'Reach Out to BoomUnit — Primary Parade Band',tag:'Parade',done:false},
+  {text:'Send Contracts to Festival Drag Performers (Story Hour & Parade)',tag:'Drag Show',done:false},
+  {text:'Share Drag Performer Flat Rate with Rob',tag:'Drag Show',done:false},
+  {text:"Confirm Jolene's Dance Studio Contact for Parade",tag:'Parade',done:false},
+  {text:'Ask Drag Performers to Stay for Parade',tag:'Parade',done:false}
+]};
+(function seedPBO(){var s=ld('pbo_seed_ts',0);if(PBO_UN_SEED.ts>s){sv('pbo_upnext_v1',PBO_UN_SEED.items);sv('pbo_seed_ts',PBO_UN_SEED.ts);}})();
+var pboItems=ld('pbo_upnext_v1',PBO_UN_SEED.items);
+function rPBO(){
+  var el=$('pbo-upnext');
+  if(!pboItems.length){el.innerHTML='<div class="empty">All caught up! ✓</div>';return;}
+  el.innerHTML=pboItems.map(function(p,i){
+    return '<div class="item'+(p.done?' done':'')+'"><input type="checkbox" id="pb'+i+'" '+(p.done?'checked':'')+' onchange="togPBO('+i+')"><label for="pb'+i+'">'+p.text+(p.tag?' <span class="bd bdg" style="font-size:10px;margin-left:4px">'+p.tag+'</span>':'')+'</label><button class="del" onclick="delPBO('+i+')">x</button></div>';
+  }).join('');
+}
+function togPBO(i){pboItems[i].done=!pboItems[i].done;sv('pbo_upnext_v1',pboItems);rPBO();}
+function delPBO(i){pboItems.splice(i,1);sv('pbo_upnext_v1',pboItems);rPBO();}
+function addPBO(){var t=($('pboIn').value||'').trim();if(!t)return;pboItems.push({text:t,tag:'',done:false});sv('pbo_upnext_v1',pboItems);$('pboIn').value='';rPBO();}
+rPBO();
+
+// Credit & Financial Goals Action Items
+var ACT_SEED={ts:1750890000000,items:[
+  {text:'🚨 URGENT: Pay USAA car insurance $119.02 by Jul 16 — coverage lapses if missed',done:false},
+  {text:'Pay Fortiva past-due ASAP (highest credit score impact per dollar)',done:false},
+  {text:'Ask Fortiva for settlement offer expiration date ($1,135.80 on $1,622.57)',done:false},
+  {text:'Send pay-for-delete letters: CreditFresh & Spectrum Mobility (~$800)',done:false},
+  {text:'Keep mortgage payments on time — loan mod trial period (top priority)',done:false},
+  {text:'Set aside ~$375/month toward Oct 15 tax bill ($1,500 owed)',done:false},
+  {text:'Enroll in ACA marketplace health + dental within 60 days of job start',done:false},
+  {text:'Use Apple Card for daily spending; pay with Apple Cash same day',done:false},
+  {text:'Talk to Nekaii at AFS in August about vehicle plan (Kia + Prius/OneMain lien)',done:false},
+  {text:'Goal: reach 620+ credit score for mortgage refinance by Christmas',done:false}
+]};
+(function seedAct(){var s=ld('act_seed_ts',0);if(ACT_SEED.ts>s){sv('actions_v1',ACT_SEED.items);sv('act_seed_ts',ACT_SEED.ts);}})();
+var actions=ld('actions_v1',ACT_SEED.items);
+function ract(){
+  var el=$('actl');
+  if(!actions.length){el.innerHTML='<div class="empty">No action items.</div>';return;}
+  el.innerHTML=actions.map(function(a,i){
+    return '<div class="item'+(a.done?' done':'')+'"><input type="checkbox" id="ac'+i+'" '+(a.done?'checked':'')+' onchange="togAct('+i+')"><label for="ac'+i+'">'+a.text+'</label><button class="del" onclick="delAct('+i+')">x</button></div>';
+  }).join('');
+}
+function togAct(i){actions[i].done=!actions[i].done;sv('actions_v1',actions);ract();}
+function delAct(i){actions.splice(i,1);sv('actions_v1',actions);ract();}
+ract();
 
 // Jobs
 var jobs=ld('jobs',[]);
@@ -883,7 +732,7 @@ var DEFAULT_RETS=[
   {store:'Amazon',item:'Amazon return',url:'https://amazon.com/returns',instr:'1. Go to amazon.com -> Returns & Orders -> find item -> Start a return.\n2. Choose drop-off method and print label (or use QR code).\n3. Drop off at UPS, Whole Foods, or Amazon Hub.\n4. Keep drop-off receipt.',lbl:'needed',status:'pending',date:'Jun 19'}
 ];
 var rets=ld('returns_v2',DEFAULT_RETS);
-var RSTL={pending:'⏳ Pending',shipped:'📬 Shipped',refunded:'✅ Refunded'};
+var RSTL={pending:'⏳ Pending',shipped:'📬 Shipped',refunded:'✅ Refunded',done:'✔️ Done'};
 var LBLL={needed:'🖨️ Label needed',created:'📄 Label created',printed:'✅ Printed',dropped:'📦 Dropped off'};
 function lblCl(s){return(s==='printed'||s==='dropped')?'bdgn':'bdo';}
 function stCl(s){return s==='refunded'?'bdgn':s==='shipped'?'bdb':'bdg';}
@@ -896,7 +745,7 @@ function rrets(){
 }
 function togRI(i){var el=$('ri'+i),btn=$('rib'+i);if(el.style.display==='block'){el.style.display='none';btn.innerHTML='▶ Show instructions &amp; address';}else{el.style.display='block';btn.innerHTML='▼ Hide instructions';}}
 function addRet(){var s=$('rts').value.trim(),it=$('rti').value.trim(),u=$('rtu').value.trim(),ins=$('rtin').value.trim();if(!s)return;var d=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});rets.push({store:s,item:it,url:u,instr:ins,lbl:'needed',status:'pending',date:d});sv('returns_v2',rets);$('rts').value='';$('rti').value='';$('rtu').value='';$('rtin').value='';rrets();}
-function updRS(i,v){rets[i].status=v;sv('returns_v2',rets);rrets();}
+function updRS(i,v){if(v==='refunded'||v==='done'){rets.splice(i,1);sv('returns_v2',rets);rrets();return;}rets[i].status=v;sv('returns_v2',rets);rrets();}
 function updRL(i,v){rets[i].lbl=v;sv('returns_v2',rets);rrets();}
 function delRet(i){rets.splice(i,1);sv('returns_v2',rets);rrets();}
 rrets();
@@ -1097,6 +946,7 @@ var DEFAULT_RECIPES=[
 {id:'rc5',title:'Risotto with Collards',source:'Southern Living',notes:'Ingredients:\n• 1/2 lb fresh collard greens\n• 1 small onion + 1 small carrot, finely chopped\n• 2 tbsp olive oil\n• 1 cup Arborio rice\n• 3 cloves garlic, finely chopped\n• 2 (14.5 oz) cans chicken broth\n• 1 cup grated Parmesan\n• Salt + pepper\n\nInstructions:\n1. Remove stems from collards; coarsely chop.\n2. Sauté onion + carrot in oil 2 min.\n3. Add garlic, rice, and collards.\n4. Add broth gradually, stirring until absorbed. Repeat until rice is creamy.\n5. Stir in Parmesan.',date:'Saved'},
 {id:'rc6',title:'Headache Balm',source:'Pinterest (Kristen Day)',notes:'Ingredients:\n• 1/4 cup coconut oil\n• 20 drops peppermint essential oil\n• 12 drops lavender essential oil\n• 10 drops frankincense essential oil\n\nInstructions:\n1. Melt coconut oil if solid.\n2. Add essential oils; stir well.\n3. Pour into small jar. Cool and set.\n\nApply to temples, forehead, or back of neck as needed.',date:'Saved'}
 ];
+(function seedRcp(){var s=ld('rcp_seed_ts',0);if(1750890000000>s){sv('recipes_v1',DEFAULT_RECIPES);sv('rcp_seed_ts',1750890000000);}})();
 var recipes=ld('recipes_v1',DEFAULT_RECIPES);
 function rRcp(){
   var el=$('rcpList');
@@ -1106,7 +956,7 @@ function rRcp(){
       +(r.source?'<div class="rcs">📌 '+r.source+'</div>':'')
       +'<button class="rt2" onclick="togRcp('+i+')" id="rcpb'+i+'">▶ Show recipe</button>'
       +'<div class="rce" id="rcpe'+i+'">'+(r.notes||'').replace(/\n/g,'<br>')+'</div>'
-      +'<div style="margin-top:4px"><button class="del" onclick="delRcp('+i+'")>× Remove</button></div></div>';
+      +'<div style="margin-top:4px"><button class="del" onclick="delRcp('+i+')">× Remove</button></div></div>';
   }).join('');
 }
 function togRcp(i){var el=$('rcpe'+i),btn=$('rcpb'+i);if(el.style.display==='block'){el.style.display='none';btn.innerHTML='▶ Show recipe';}else{el.style.display='block';btn.innerHTML='▼ Hide recipe';}}
@@ -1187,6 +1037,7 @@ var DEFAULT_QUOTES=[
 {id:'q9',text:'The feminine rage in me recognizes the feminine rage in you.',author:'',src:'@sage.speak'},
 {id:'q10',text:"I say 'no worries' a lot for someone who is 98% worried.",author:'',src:'@allure.artistry'}
 ];
+(function seedQts(){var s=ld('qts_seed_ts',0);if(1750890000000>s){sv('quotes_v1',DEFAULT_QUOTES);sv('qts_seed_ts',1750890000000);}})();
 var quotes=ld('quotes_v1',DEFAULT_QUOTES);
 function rQts(){
   var el=$('qtsList');
@@ -1213,6 +1064,7 @@ var DEFAULT_LOCAL=[
 body:'TREES: Tree-of-Heaven, Mimosa, Chinaberry, Princess Tree, Bradford Pear, Chinese Tallowtree\n\nSHRUBS: Leatherleaf Mahonia, Japanese Barberry, Butterfly Bush, Russian Olive, Thorny Olive, Autumn Olive, Burning Bush, Japanese Privet, Chinese Privet, Fragrant Honeysuckle, Bush Honeysuckle, Heavenly Bamboo, Trifoliate Orange, Multiflora Rose, Salt Cedar\n\nVINES: Chocolate Vine, Porcelain Berry, Bushkiller, Oriental Bittersweet, Sweet Autumn Virgin\'s Bower, Wintercreeper, English Ivy, Japanese Honeysuckle, Mile-A-Minute Vine, Kudzu, Puncturevine, Japanese Wisteria, Chinese Wisteria\n\nGRASSES: Giant Reed, Deep-Rooted Sedge, Japanese Stilt Grass, Chinese Silvergrass, Wavyleaf Basketgrass, Reed Canarygrass, Common Reed, Golden Bamboo, Johnson Grass\n\nPERENNIALS: Garlic Mustard, Fig Buttercup, Ground Ivy, Giant Hogweed, Cogongrass, Yellowflag Iris, Bicolor Lespedeza, Chinese Lespedeza, Purple Loosestrife, Beefsteak Plant, Japanese Knotweed, Tropical Soda Apple, Common Chickweed, Asiatic Hawksbeard\n\nAQUATIC: Alligatorweed, Brazilian Waterweed, Hydrilla, Creeping Water Primrose, Parrot Feather, Crested Floating Heart, Giant Salvinia'},
 {id:'loc2',title:'Pittsboro Downtown Parking & Planning Project',src:'pittsboronc.gov/dppp',body:'Reference: www.pittsboronc.gov/dppp'}
 ];
+(function seedLoc(){var s=ld('loc_seed_ts',0);if(1750890000000>s){sv('local_v1',DEFAULT_LOCAL);sv('loc_seed_ts',1750890000000);}})();
 var locItems=ld('local_v1',DEFAULT_LOCAL);
 function rLoc(){
   var el=$('locList');
