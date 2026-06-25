@@ -788,6 +788,8 @@ function jCard(j,i){
   return '<div class="jc"><div class="jt"><div><div class="jr">'+(j.role||'Untitled')+'</div>'+(j.company?'<div class="jco">'+j.company+'</div>':'')+(j.url?'<a class="jlk" href="'+j.url+'" target="_blank">🔗 View posting</a>':'')+'</div><button class="del" onclick="delJob('+i+')">×</button></div><div class="jm"><span class="bd '+s.cl+'">'+s.lb+'</span>'+(j.dateAdded?'<span class="bd bdx">'+j.dateAdded+'</span>':'')+(needsFri(j)?'<span class="wf">⚠️ Apply by Friday!</span>':'')+(shouldArch(j)?'<button class="ab" onclick="updJob('+i+',\'archived\')">Archive?</button>':'')+'</div><div style="margin-top:7px"><select class="msel" onchange="updJob('+i+',this.value)">'+jOpts(j.status)+'</select></div></div>';
 }
 function rjobs(){
+       if(!$('jsl'))return;
+
   var sv2=jobs.filter(function(j){return j.status==='saved';}),ac=jobs.filter(function(j){return j.status!=='saved'&&j.status!=='archived';}),ar=jobs.filter(function(j){return j.status==='archived';});
   $('jsl').innerHTML=sv2.length?sv2.map(function(j){return jCard(j,jobs.indexOf(j));}).join(''):'<div class="empty">Drop job links here to apply later</div>';
   $('jal').innerHTML=ac.length?ac.map(function(j){return jCard(j,jobs.indexOf(j));}).join(''):'<div class="empty">No active applications yet</div>';
