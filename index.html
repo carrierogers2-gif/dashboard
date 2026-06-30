@@ -424,7 +424,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div id="lnkl"></div>
         <div class="sec" style="margin-top:8px">➕ Save a Link</div>
         <div class="ar"><input class="gw" type="url" id="lnku" placeholder="Paste URL"></div>
-        <div class="ar" style="margin-top:7px"><input class="gw" type="text" id="lnkn" placeholder="What to do with this lin+…"><button class="sb" onclick="addLnk()">Save</button></div>
+        <div class="ar" style="margin-top:7px"><input class="gw" type="text" id="lnkn" placeholder="What to do with this link…"><button class="sb" onclick="addLnk()">Save</button></div>
       </div>
     </div>
   </div>
@@ -622,7 +622,7 @@ rEvtRes();
 
 // ── REBATES ──────────────────────────────────────────────────────────────────
 // REBATE_SEED_START — auto-updated by weekly rebate checker task, do not edit this line
-var REBATE_SEDD={ts:0,checkedDate:'',items:[]};
+var REBATE_SEED={ts:0,checkedDate:'',items:[]};
 // REBATE_SEED_END — do not edit this line
 
 (function seedRebates(){
@@ -788,7 +788,8 @@ function jCard(j,i){
   return '<div class="jc"><div class="jt"><div><div class="jr">'+(j.role||'Untitled')+'</div>'+(j.company?'<div class="jco">'+j.company+'</div>':'')+(j.url?'<a class="jlk" href="'+j.url+'" target="_blank">🔗 View posting</a>':'')+'</div><button class="del" onclick="delJob('+i+')">×</button></div><div class="jm"><span class="bd '+s.cl+'">'+s.lb+'</span>'+(j.dateAdded?'<span class="bd bdx">'+j.dateAdded+'</span>':'')+(needsFri(j)?'<span class="wf">⚠️ Apply by Friday!</span>':'')+(shouldArch(j)?'<button class="ab" onclick="updJob('+i+',\'archived\')">Archive?</button>':'')+'</div><div style="margin-top:7px"><select class="msel" onchange="updJob('+i+',this.value)">'+jOpts(j.status)+'</select></div></div>';
 }
 function rjobs(){
-  if(!$('jsl'))return;
+       if(!$('jsl'))return;
+
   var sv2=jobs.filter(function(j){return j.status==='saved';}),ac=jobs.filter(function(j){return j.status!=='saved'&&j.status!=='archived';}),ar=jobs.filter(function(j){return j.status==='archived';});
   $('jsl').innerHTML=sv2.length?sv2.map(function(j){return jCard(j,jobs.indexOf(j));}).join(''):'<div class="empty">Drop job links here to apply later</div>';
   $('jal').innerHTML=ac.length?ac.map(function(j){return jCard(j,jobs.indexOf(j));}).join(''):'<div class="empty">No active applications yet</div>';
@@ -1225,7 +1226,7 @@ var DIET_SEED={ts:1782432000002,items:[
   {ts:1782172800008,date:'2026-06-23',meal:'Dinner',food:'Spaghetti — half cup noodles, half cup meat sauce (ground chuck, Prego chunky garden veg)',notes:''},
   {ts:1782172800009,date:'2026-06-23',meal:'Drink',food:'Sparkling water x2 (earlier in day)',notes:''},
   {ts:1782172800010,date:'2026-06-23',meal:'Drink',food:'Scercy Seltzer x3 (after dinner)',notes:''},
-  {ts:1782172800011,date:'2026-06-23',meal:'Drink',food:'Starbucks mocha choc chip Frappuccino — eat milk, decaf espresso (base contains milk)',notes:'✅ No cramping tonight. Carbonation similar to Mon but no ice cream. Dairy pattern: hard cheese OK, high-lactose (ice cream) triggers cramps.'},
+  {ts:1782172800011,date:'2026-06-23',meal:'Drink',food:'Starbucks mocha choc chip Frappuccino — oat milk, decaf espresso (base contains milk)',notes:'✅ No cramping tonight. Carbonation similar to Mon but no ice cream. Dairy pattern: hard cheese OK, high-lactose (ice cream) triggers cramps.'},
   {ts:1782259200001,date:'2026-06-24',meal:'Supplement',food:'BelliWelli fiber + probiotics drink (strawberry lemonade)',notes:''},
   {ts:1782259200002,date:'2026-06-24',meal:'Breakfast',food:"Half Thomas' bagel with plain cream cheese",notes:''},
   {ts:1782259200003,date:'2026-06-24',meal:'Breakfast',food:'Coffee — French roast/decaf blend, oat milk creamer',notes:''},
@@ -1475,4 +1476,7 @@ document.addEventListener('DOMContentLoaded',function(){
   </div>
   <div class="card">
     <div class="ch">💊 Medication Reminders</div>
-    <div class="cb" id="dietMedList"><
+    <div class="cb" id="dietMedList"></div>
+  </div>
+</div>
+
